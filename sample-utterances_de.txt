@@ -1,0 +1,14 @@
+RadioGongIntent was das ist
+RadioGongIntent was gerade läuft
+RadioGongIntent nach der Playlist
+RadioGongIntent nach dem Lied
+RadioGongIntent nach dem Song
+RadioGongIntent nach dem Stück
+RadioGongIntent nach der Band
+RadioGongIntent nach dem Künstler
+RadioGongIntent nach der aktuellen Playlist
+RadioGongIntent nach dem aktuellen Lied
+RadioGongIntent nach dem aktuellen Song
+RadioGongIntent nach dem aktuellen Stück
+RadioGongIntent nach der aktuellen Band
+RadioGongIntent nach dem aktuellen Künstler

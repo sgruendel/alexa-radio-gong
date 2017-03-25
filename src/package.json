@@ -1,0 +1,28 @@
+{
+  "name": "radio-gong",
+  "version": "1.0.0",
+  "description": "Lambda function for Alexa",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sgruendel/alexa-radio-gong.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "invoke": "aws lambda invoke --function-name 'radioGong' --payload fileb://../tests/events/alexa-start-session.json ../tests/out.txt && cat ../tests/out.txt",
+    "test": "mocha",
+    "deploy": "npm prune --production && npm run zip && npm run upload",
+    "upload": "aws lambda update-function-code --function-name 'radioGong' --zip-file fileb://../index.zip",
+    "zip": "zip -r ../index.zip . -x 'package.json' 'test/*' '*.git*' '*~'"
+  },
+  "author": "Stefan Gründel",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "alexa-sdk": "^1.0.7",
+    "cheerio": "^0.22.0"
+  },
+  "devDependencies": {
+    "aws-lambda-mock-context": "^3.0.1",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
