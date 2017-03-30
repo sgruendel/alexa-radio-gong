@@ -62,8 +62,10 @@ const handlers = {
                 }
                 */
 
+                console.log(cardContent);
                 this.emit(':tellWithCard', speechOutput, 'Radio Gong Playlist', cardContent);
             } else {
+                console.error('Error getting playlist', err);
                 this.emit(':tell', this.t('CANT_GET_PLAYLIST_MESSAGE'));
             }
         });
