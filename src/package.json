@@ -1,6 +1,6 @@
 {
   "name": "radio-gong",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lambda function for Alexa",
   "repository": {
     "type": "git",
@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "invoke": "aws lambda invoke --function-name 'radioGong' --payload fileb://../tests/events/alexa-start-session.json ../tests/out.txt && cat ../tests/out.txt",
-    "test": "mocha",
+    "test": "mocha --timeout 10000",
     "deploy": "npm prune --production && npm run zip && npm run upload",
     "upload": "aws lambda update-function-code --function-name 'radioGong' --zip-file fileb://../index.zip",
     "zip": "zip -r ../index.zip . -x 'package.json' 'test/*' '*.git*' '*~'"
