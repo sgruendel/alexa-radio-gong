@@ -36,29 +36,33 @@ exports.getPlaylist = function(callback) {
             //console.log(JSON.stringify(body));
             // we may need to parse through it to extract the needed data
 
-            try {
-                var $ = cheerio.load(body);
-                var entries = $('#content-main center table').find('tr').map((i, tr) => {
-                    //console.log('tr', tr);
-                    var day, time, artist, song;
-                    var cells = $('td', tr).map((j, td) => {
-                        return $(td).text();
+            if (body.length > 4) {
+                try {
+                    var $ = cheerio.load(body);
+                    var entries = $('#content-main center table tr').map((i, tr) => {
+                        //console.log('tr', tr);
+                        var day, time, artist, song;
+                        var cells = $('td', tr).map((j, td) => {
+                            return $(td).text();
+                        });
+                        var entry = {};
+                        entry.day = cells[0];
+                        entry.time = cells[1];
+                        // cells[2] is the album cover
+                        entry.artist = cells[3];
+                        entry.song = cells[4];
+                        //console.log(entry);
+                        return [ entry ];
                     });
-                    var entry = {};
-                    entry.day = cells[0];
-                    entry.time = cells[1];
-                    // cells[2] is the album cover
-                    entry.artist = cells[3];
-                    entry.song = cells[4];
-                    //console.log(entry);
-                    return [ entry ];
-                });
-                //console.log(entries);
-                return callback(null, entries);
-            } catch (err) {
-                console.error('error parsing playlist', err);
-                callback(err);
+                    //console.log(entries);
+                    return callback(null, entries);
+                } catch (err) {
+                    console.error('error parsing playlist', err);
+                    callback(err);
+                }
             }
+            console.error('received an empty page, starting recursion ...');
+            exports.getPlaylist(callback);
         });
     });
 
@@ -68,4 +72,4 @@ exports.getPlaylist = function(callback) {
     });
     
     request.end();
-};
+}
