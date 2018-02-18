@@ -8,10 +8,11 @@ const cheerio = require('cheerio');
 var exports = module.exports = {};
 
 exports.getPlaylist = function(callback) {
-    const request = http.get({ host: 'www.radiogong.com',
-                               port: 80,
-                               path: '/index.php?id=32',
-                             });
+    const request = http.get({
+        host: 'www.radiogong.com',
+        port: 80,
+        path: '/index.php?id=32',
+    });
 
     request.on('response', (response) => {
         if (response.statusCode < 200 || response.statusCode > 299) {
@@ -24,24 +25,23 @@ exports.getPlaylist = function(callback) {
         // explicitly treat incoming data as utf8
         response.setEncoding('utf8');
 
-        // incrementally capture the incoming response body        
+        // incrementally capture the incoming response body
         var body = '';
         response.on('data', chunk => {
             body += chunk;
         });
-            
+
         response.on('end', () => {
             // we have now received the raw return data in the returnData variable.
             // We can see it in the log output via:
-            //console.log(JSON.stringify(body));
+            // console.log(JSON.stringify(body));
             // we may need to parse through it to extract the needed data
 
             if (body.length > 4) {
                 try {
                     var $ = cheerio.load(body);
                     var entries = $('#content-main center table tr').map((i, tr) => {
-                        //console.log('tr', tr);
-                        var day, time, artist, song;
+                        // console.log('tr', tr);
                         var cells = $('td', tr).map((j, td) => {
                             return $(td).text();
                         });
@@ -51,10 +51,10 @@ exports.getPlaylist = function(callback) {
                         // cells[2] is the album cover
                         entry.artist = cells[3];
                         entry.song = cells[4];
-                        //console.log(entry);
+                        // console.log(entry);
                         return [ entry ];
                     });
-                    //console.log(entries);
+                    // console.log(entries);
                     return callback(null, entries);
                 } catch (err) {
                     console.error('error parsing playlist', err);
@@ -70,6 +70,6 @@ exports.getPlaylist = function(callback) {
         console.error('error requesting playlist', err.message);
         callback(err);
     });
-    
+
     request.end();
-}
+};
