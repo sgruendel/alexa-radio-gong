@@ -10,7 +10,7 @@ const languageStrings = {
             HELP_MESSAGE: 'Du kannst sagen „Frag Mein Heimvorteil nach dem aktuellen Lied“, oder du kannst „Beenden“ sagen. Wie kann ich dir helfen?',
             HELP_REPROMPT: 'Wie kann ich dir helfen?',
             STOP_MESSAGE: 'Auf Wiedersehen!',
-            CURRENTLY_PLAYING_MESSAGE: 'Du hörst gerade {song} von {artist}.',
+            CURRENTLY_PLAYING_MESSAGE: 'Du hörst gerade {{song}} von {{artist}}.',
             CANT_GET_PLAYLIST_MESSAGE: 'Es tut mir leid, das kann ich gerade nicht herausfinden.',
         },
     },
@@ -27,11 +27,13 @@ const handlers = {
         radioGong.getPlaylist((err, playlist) => {
             if (playlist && playlist[0]) {
                 const entry = playlist[0];
-                const nowPlaying = this.t('CURRENTLY_PLAYING_MESSAGE')
-                    .replace('{artist}', entry.artist)
-                    .replace('{song}', entry.song);
-                const speechOutput = nowPlaying;
-                const cardContent = nowPlaying;
+                console.log('entry is', entry);
+                const speechOutput = this.t('CURRENTLY_PLAYING_MESSAGE', { artist: entry.artist, song: entry.song });
+                const cardContent = this.t('CURRENTLY_PLAYING_MESSAGE',
+                    {
+                        artist: entry.artist, song: entry.song,
+                        interpolation: { escapeValue: false },
+                    });
 
                 console.log(cardContent);
                 this.emit(':tellWithCard', speechOutput, 'Radio Gong Playlist', cardContent);
