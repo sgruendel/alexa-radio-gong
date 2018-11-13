@@ -16,3 +16,17 @@ describe('radioGong', () => {
         });
     });
 });
+
+describe('radioGong', () => {
+    describe('#getTrafficControls()', () => {
+        it('should give traffic controls', done => {
+            radioGong.getTrafficControls((err, result) => {
+                expect(err).to.be.null;
+                expect(result).to.have.length.above(1);
+                expect(result[0].title).to.be.a('string');
+                expect(result[0].text).to.be.a('string');
+                done();
+            });
+        });
+    });
+});

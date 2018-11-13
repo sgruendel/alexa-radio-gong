@@ -43,3 +43,34 @@ exports.getPlaylist = function(callback) {
             return callback(err);
         });
 };
+
+exports.parseTrafficControlsBody = function(body) {
+    const $ = cheerio.load(body);
+    return $('#content-main ul li div.verkehritem').map((i, verkehritem) => {
+        // console.log('div', verkehritem);
+        const cells = $('div', verkehritem).map((j, div) => {
+            return $(div).text();
+        });
+        return { title: cells[0], text: cells[1] };
+    }).toArray();
+};
+
+exports.getTrafficControls = function(callback) {
+    const options = {
+        uri: 'news/verkehr-blitzer-stau-meldungen.html',
+    };
+    baseRequest(options)
+        .then(result => {
+            try {
+                const entries = exports.parseTrafficControlsBody(result);
+                return callback(null, entries);
+            } catch (err) {
+                console.error('error parsing traffic controls:', err);
+                return callback(err);
+            }
+        })
+        .catch(err => {
+            console.error('error in response for traffic controls:', err);
+            return callback(err);
+        });
+};
