@@ -4,7 +4,7 @@ const request = require('request-promise-native');
 const cheerio = require('cheerio');
 
 const baseRequest = request.defaults({
-    baseUrl: 'http://www.radiogong.com',
+    baseUrl: 'https://www.radiogong.com',
     gzip: true,
 });
 
