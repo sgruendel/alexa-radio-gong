@@ -33,7 +33,7 @@ const languageStrings = {
 
 const RadioGongIntentHandler = {
     canHandle(handlerInput) {
-        const request = handlerInput.requestEnvelope.request;
+        const { request } = handlerInput.requestEnvelope;
         return (request.type === 'LaunchRequest')
             || (request.type === 'IntentRequest' && request.intent.name === 'RadioGongIntent');
     },
@@ -45,8 +45,8 @@ const RadioGongIntentHandler = {
             .then((playlist) => {
                 logger.debug('playlist', playlist);
                 const entry = playlist[0];
-                const speechOutput = this.t('CURRENTLY_PLAYING_MESSAGE', { artist: entry.artist, song: entry.song });
-                const cardContent = this.t('CURRENTLY_PLAYING_MESSAGE',
+                const speechOutput = requestAttributes.t('CURRENTLY_PLAYING_MESSAGE', { artist: entry.artist, song: entry.song });
+                const cardContent = requestAttributes.t('CURRENTLY_PLAYING_MESSAGE',
                     {
                         artist: entry.artist, song: entry.song,
                         interpolation: { escapeValue: false },
@@ -59,10 +59,9 @@ const RadioGongIntentHandler = {
                     .getResponse();
             })
             .catch((err) => {
-                logger.error(err);
-                const speechOutput = requestAttributes.t('CANT_GET_PLAYLIST_MESSAGE');
+                logger.error(err.stack || err.toString());
                 response = handlerInput.responseBuilder
-                    .speak(speechOutput)
+                    .speak(requestAttributes.t('CANT_GET_PLAYLIST_MESSAGE'))
                     .getResponse();
             });
 
@@ -115,7 +114,7 @@ const SessionEndedRequestHandler = {
                 logger.error(request.error.type + ': ' + request.error.message);
             }
         } catch (err) {
-            logger.error(err, request);
+            logger.error(err.stack || err.toString(), request);
         }
 
         logger.debug('session ended', request);
