@@ -1,0 +1,47 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "de-DE": {
+          "summary": "Radio Gong (inoffiziell)",
+          "examplePhrases": [
+            "Alexa, starte mein Heimvorteil",
+            "Alexa, frage mein Heimvorteil nach der aktuellen Playlist",
+            "Alexa, frage mein Heimvorteil nach dem Song"
+          ],
+          "keywords": [
+            "music",
+            "playlist",
+            "radio",
+            "gong",
+            "würzburg"
+          ],
+          "name": "Mein Heimvorteil",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/adb396677f374f87a3289437e070b546/APP_ICON?versionId=zv_J5wC0EshoOMoi1TYRp4NuPnUBbqq4&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1542179385&Signature=65wLBFwRWNc%2Bndxza68ieqy9gIw%3D",
+          "description": "Mit diesem Skill kann die aktuelle Playlist von Radio Gong Würzburg (106,9) abgerufen werden, es werden Künstler und Song genannt.\n\nDieser Skill ist ein inoffizielles Fan-Projekt.",
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/fb50bf00f1b546f5ac9356422bcaad68/APP_ICON_LARGE?versionId=Sj02OM9_vKpQD82iT73ridGSyHs.d8f0&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1542179385&Signature=TXUaZm65jgggbjp1EIJ2b0NllzA%3D"
+        }
+      },
+      "isAvailableWorldwide": true,
+      "testingInstructions": "See http://www.radiogong.com for current playlist\n\n30.03.: Handle case where page returned is empty and simply retry\n24.03.: Changed sample utterances according to certification feedback",
+      "category": "MUSIC_INFO_REVIEWS_AND_RECOGNITION_SERVICE",
+      "distributionCountries": []
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "sourceDir": "./src"
+        }
+      }
+    },
+    "manifestVersion": "1.0",
+    "permissions": [],
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "isExportCompliant": true,
+      "containsAds": false,
+      "isChildDirected": false,
+      "usesPersonalInfo": false
+    }
+  }
+}

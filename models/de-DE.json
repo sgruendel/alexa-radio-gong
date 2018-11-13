@@ -1,0 +1,37 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "mein heimvorteil",
+      "intents": [
+        {
+          "name": "RadioGongIntent",
+          "samples": [
+            "was das ist",
+            "was gerade läuft",
+            "nach der Playlist",
+            "nach dem Lied",
+            "nach dem Song",
+            "nach dem Stück",
+            "nach der Band",
+            "nach dem Künstler",
+            "nach der aktuellen Playlist",
+            "nach dem aktuellen Lied",
+            "nach dem aktuellen Song",
+            "nach dem aktuellen Stück",
+            "nach der aktuellen Band",
+            "nach dem aktuellen Künstler"
+          ]
+        },
+        {
+          "name": "AMAZON.HelpIntent"
+        },
+        {
+          "name": "AMAZON.StopIntent"
+        },
+        {
+          "name": "AMAZON.CancelIntent"
+        }
+      ]
+    }
+  }
+}
