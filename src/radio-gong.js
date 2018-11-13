@@ -10,7 +10,7 @@ const baseRequest = request.defaults({
 
 var exports = module.exports = {};
 
-exports.parsePlaylistBody = function(body) {
+exports.parsePlaylistBody = (body) => {
     const $ = cheerio.load(body);
     return $('#content-main center table tr').map((i, tr) => {
         const cells = $('td', tr).map((j, td) => {
@@ -21,30 +21,17 @@ exports.parsePlaylistBody = function(body) {
     }).toArray();
 };
 
-exports.getPlaylist = function(callback) {
+exports.getPlaylist = async function() {
     const options = {
         uri: 'index.php',
         qs: {
             id: 32,
         },
     };
-    baseRequest(options)
-        .then(result => {
-            try {
-                const entries = exports.parsePlaylistBody(result);
-                return callback(null, entries);
-            } catch (err) {
-                console.error('error parsing playlist:', err);
-                return callback(err);
-            }
-        })
-        .catch(err => {
-            console.error('error in response for playlist:', err);
-            return callback(err);
-        });
+    return exports.parsePlaylistBody(await baseRequest(options));
 };
 
-exports.parseTrafficControlsBody = function(body) {
+exports.parseTrafficControlsBody = (body) => {
     const $ = cheerio.load(body);
     return $('#content-main ul li div.verkehritem').map((i, verkehritem) => {
         // console.log('div', verkehritem);
@@ -55,22 +42,9 @@ exports.parseTrafficControlsBody = function(body) {
     }).toArray();
 };
 
-exports.getTrafficControls = function(callback) {
+exports.getTrafficControls = async function() {
     const options = {
         uri: 'news/verkehr-blitzer-stau-meldungen.html',
     };
-    baseRequest(options)
-        .then(result => {
-            try {
-                const entries = exports.parseTrafficControlsBody(result);
-                return callback(null, entries);
-            } catch (err) {
-                console.error('error parsing traffic controls:', err);
-                return callback(err);
-            }
-        })
-        .catch(err => {
-            console.error('error in response for traffic controls:', err);
-            return callback(err);
-        });
+    return exports.parseTrafficControlsBody(await baseRequest(options));
 };

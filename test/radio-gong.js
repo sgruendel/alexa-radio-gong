@@ -1,9 +1,9 @@
 'use strict';
 
-var expect = require('chai').expect;
-var radioGong = require('../src/radio-gong');
+const expect = require('chai').expect;
+const radioGong = require('../src/radio-gong');
 
-describe('radioGong', () => {
+describe('Radio Gong Website', () => {
     describe('#getPlaylist()', () => {
         it('should give songs playing', done => {
             radioGong.getPlaylist((err, result) => {
