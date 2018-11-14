@@ -127,8 +127,7 @@ const ErrorHandler = {
         return true;
     },
     handle(handlerInput, error) {
-        logger.error(error.message,
-            { request: handlerInput.requestEnvelope.request, stack: error.stack, error: error });
+        logger.error(error.stack || error.toString(), handlerInput.requestEnvelope.request);
         const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
         const speechOutput = requestAttributes.t('NOT_UNDERSTOOD_MESSAGE');
         return handlerInput.responseBuilder
