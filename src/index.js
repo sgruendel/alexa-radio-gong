@@ -161,7 +161,6 @@ exports.handler = Alexa.SkillBuilders.custom()
         SessionEndedRequestHandler)
     .addRequestInterceptors(LocalizationInterceptor)
     .addErrorHandlers(ErrorHandler)
-    .withApiClient(new Alexa.DefaultApiClient())
     .withSkillId(SKILL_ID)
     .lambda();
 if (dashbot) exports.handler = dashbot.handler(exports.handler);
