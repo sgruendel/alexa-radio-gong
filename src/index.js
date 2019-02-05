@@ -38,6 +38,9 @@ const RadioGongIntentHandler = {
             || (request.type === 'IntentRequest' && request.intent.name === 'RadioGongIntent');
     },
     async handle(handlerInput) {
+        const { request } = handlerInput.requestEnvelope;
+        logger.debug('request', request);
+
         const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
 
         var response;
@@ -60,8 +63,9 @@ const RadioGongIntentHandler = {
             })
             .catch((err) => {
                 logger.error(err.stack || err.toString());
+                const speechOutput = requestAttributes.t('CANT_GET_PLAYLIST_MESSAGE');
                 response = handlerInput.responseBuilder
-                    .speak(requestAttributes.t('CANT_GET_PLAYLIST_MESSAGE'))
+                    .speak(speechOutput)
                     .getResponse();
             });
 
