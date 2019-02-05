@@ -23,7 +23,7 @@
         }
       },
       "isAvailableWorldwide": true,
-      "testingInstructions": "See http://www.radiogong.com for current playlist\n\nChanges to previous version (lambda version 2):\n* Fix for www.radiogong.com not being accessible via HTTP anymore\n* optimized HelpIntent handling",
+      "testingInstructions": "See http://www.radiogong.com for current playlist\n\nChanges to previous version (lambda version 6):\n* Fix for new website www.radiogong.com",
       "category": "MUSIC_INFO_REVIEWS_AND_RECOGNITION_SERVICE",
       "distributionCountries": []
     },
