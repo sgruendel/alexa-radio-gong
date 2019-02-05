@@ -9,25 +9,18 @@ describe('Radio Gong Website', () => {
         it('should parse playlist', () => {
             const body = fs.readFileSync('test/radio-gong-playlist.html');
             const playlist = radioGong.parsePlaylistBody(body);
-            expect(playlist).to.have.lengthOf(146);
-
+            expect(playlist).to.have.lengthOf(5);
             expect(playlist[0].artist).to.equal('ROBIN SCHULZ');
             expect(playlist[0].song).to.equal('Speechless (feat. Erika Sirola)');
-
-            expect(playlist[6].artist).to.equal('SAM SMITH & Normani');
-            expect(playlist[6].song).to.equal('Dancing With A Stranger');
-
-            expect(playlist[145].artist).to.equal('Ariana Grande');
-            expect(playlist[145].song).to.equal('7 rings');
         });
     });
 
     describe('#getPlaylist()', () => {
         it('should give songs playing', async function() {
-            const result = await radioGong.getPlaylist();
-            expect(result).to.have.length.above(1);
-            expect(result[0].artist).to.be.a('string');
-            expect(result[0].song).to.be.a('string');
+            const playlist = await radioGong.getPlaylist();
+            expect(playlist).to.have.lengthOf(5);
+            expect(playlist[0].artist).to.be.a('string');
+            expect(playlist[0].song).to.be.a('string');
         });
     });
 

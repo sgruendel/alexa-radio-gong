@@ -14,11 +14,10 @@ exports.parsePlaylistBody = (body) => {
     const $ = cheerio.load(body);
 
     return $('div .playlist-divitem').map((i, div) => {
-        /*
-        const cells = $('td', tr).map((j, td) => {
-            return $(td).text().trim();
-        }).toArray();
-        */
+        if (i >= 5) {
+            // only return last 5 songs played, otherwise we're too slow
+            return undefined;
+        }
         const date = $('div .playlist-date span', div);
         const day = date.slice(0, 1).text();
         const time = date.slice(1, 2).text();
