@@ -12,27 +12,35 @@ var exports = module.exports = {};
 
 exports.parsePlaylistBody = (body) => {
     const $ = cheerio.load(body);
-    return $('#content-main center table tr').map((i, tr) => {
+
+    return $('div .playlist-divitem').map((i, div) => {
+        /*
         const cells = $('td', tr).map((j, td) => {
             return $(td).text().trim();
         }).toArray();
-        // cells[2] is the album cover
-        return { day: cells[0], time: cells[1], artist: cells[3], song: cells[4] };
+        */
+        const date = $('div .playlist-date span', div);
+        const day = date.slice(0, 1).text();
+        const time = date.slice(1, 2).text();
+        const interpret = $('div .playlist-interpret', div).text();
+        const titel = $('div .playlist-titel', div).text();
+
+        return { day: day, time: time, artist: interpret, song: titel };
     }).toArray();
 };
 
 exports.getPlaylist = async function() {
     const options = {
-        uri: 'index.php',
-        qs: {
-            id: 32,
-        },
+        uri: 'radio-gong-playlist/',
     };
     return exports.parsePlaylistBody(await baseRequest(options));
 };
 
 exports.parseTrafficControlsBody = (body) => {
     const $ = cheerio.load(body);
+    const meldungen = $('div .content-box-verlauf');
+
+
     return $('#content-main ul li div.verkehritem').map((i, verkehritem) => {
         // console.log('div', verkehritem);
         const cells = $('div', verkehritem).map((j, div) => {
@@ -44,7 +52,7 @@ exports.parseTrafficControlsBody = (body) => {
 
 exports.getTrafficControls = async function() {
     const options = {
-        uri: 'news/verkehr-blitzer-stau-meldungen.html',
+        uri: '/verkehr-und-blitzer/',
     };
     return exports.parseTrafficControlsBody(await baseRequest(options));
 };
