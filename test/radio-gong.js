@@ -24,23 +24,27 @@ describe('Radio Gong Website', () => {
         });
     });
 
-    /*
-    describe('#parseTrafficControlsBody()', () => {
-        it('should parse 1 traffic and 2 radar alerts', () => {
+    describe('#parseTrafficBody()', () => {
+        it('should parse 0 traffic messages and 5 traffic controls', () => {
+            const body = fs.readFileSync('test/verkehr_0_blitzer_5.html');
+            const traffic = radioGong.parseTrafficBody(body);
+            expect(traffic.messages).to.have.length(0);
+            expect(traffic.controls).to.have.length(5);
+        });
+
+        it('should parse 1 traffic message and 2 traffic cintrols', () => {
             const body = fs.readFileSync('test/verkehr_1_blitzer_2.html');
-            const result = radioGong.parseTrafficControlsBody(body);
-            expect(result[0].title).to.be.a('string');
-            expect(result[0].text).to.be.a('string');
+            const traffic = radioGong.parseTrafficBody(body);
+            expect(traffic.messages).to.have.length(1);
+            expect(traffic.controls).to.have.length(2);
         });
     });
 
-    describe('#getTrafficControls()', () => {
+    describe('#getTraffic()', () => {
         it('should give traffic controls', async function() {
-            const result = await radioGong.getTrafficControls();
-            //expect(result).to.have.length.above(1);
-            expect(result[0].title).to.be.a('string');
-            expect(result[0].text).to.be.a('string');
+            const traffic = await radioGong.getTraffic();
+            expect(traffic.messages).to.exist;
+            expect(traffic.controls).to.exist;
         });
     });
-    */
 });

@@ -35,23 +35,37 @@ exports.getPlaylist = async function() {
     return exports.parsePlaylistBody(await baseRequest(options));
 };
 
-exports.parseTrafficControlsBody = (body) => {
+exports.parseTrafficBody = (body) => {
     const $ = cheerio.load(body);
-    const meldungen = $('div .content-box-verlauf');
-
-
-    return $('#content-main ul li div.verkehritem').map((i, verkehritem) => {
-        // console.log('div', verkehritem);
-        const cells = $('div', verkehritem).map((j, div) => {
-            return $(div).text();
+    var traffic = {};
+    $('div .content-box-verlauf').map((i, alertDivs) => {
+        const header = $('h2', alertDivs).text();
+        const cells = $('div', alertDivs).map((j, div) => {
+            return $(div).text().trim().replace(/\n+/, ' ');
         });
-        return { title: cells[0], text: cells[1] };
-    }).toArray();
+        var alerts = [];
+        for (var j = 2; j < cells.length; j += 3) {
+            var alert = cells[j - 2];
+            if (cells[j - 1]) {
+                alert += ' ' + cells[j - 1];
+            }
+            if (cells[j]) {
+                alert += ' ' + cells[j];
+            }
+            alerts.push(alert);
+        }
+        if (header.indexOf('Verkehrsmeldung') >= 0) {
+            traffic.messages = alerts;
+        } else if (header.indexOf('Blitzermeldung') >= 0) {
+            traffic.controls = alerts;
+        }
+    });
+    return traffic;
 };
 
-exports.getTrafficControls = async function() {
+exports.getTraffic = async function() {
     const options = {
         uri: '/verkehr-und-blitzer/',
     };
-    return exports.parseTrafficControlsBody(await baseRequest(options));
+    return exports.parseTrafficBody(await baseRequest(options));
 };
