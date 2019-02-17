@@ -1,9 +1,32 @@
 {
   "manifest": {
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "sourceDir": "./src"
+        }
+      }
+    },
+    "manifestVersion": "1.0",
+    "permissions": [],
+    "privacyAndCompliance": {
+      "locales": {
+        "de-DE": {}
+      },
+      "allowsPurchases": false,
+      "usesPersonalInfo": false,
+      "isChildDirected": false,
+      "isExportCompliant": true,
+      "containsAds": false
+    },
     "publishingInformation": {
       "locales": {
         "de-DE": {
+          "name": "Mein Heimvorteil",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/27e1/3755eb87f4bf436a9709e5461008df45/APP_ICON?versionId=PagHv3IaV4QUWgTHX2_eHgpfkCYBMFi3&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1550477029&Signature=3IlHhzlow6IlRag%2BDYO26YoX%2BOk%3D",
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/9e9d/a0346fa7b5d146f3ac213d878ef5641c/APP_ICON_LARGE?versionId=A.vxpxgxakwLyWXKsiR1PMQDkNPeHM7Q&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1550477029&Signature=YeQcNIAcBwNFEqINZfr703XIjpk%3D",
           "summary": "Radio Gong (inoffiziell)",
+          "description": "Mit diesem Skill kann die aktuelle Playlist von Radio Gong Würzburg (106,9) abgerufen werden, es werden Künstler und Song genannt.\n\nDieser Skill ist ein inoffizielles Fan-Projekt.\n\nVerbesserungsvorschläge und Feedback gerne unter https://github.com/sgruendel/alexa-radio-gong/issues/new.",
           "examplePhrases": [
             "Alexa, starte mein Heimvorteil",
             "Alexa, frage mein Heimvorteil nach der aktuellen Playlist",
@@ -15,33 +38,13 @@
             "radio",
             "gong",
             "würzburg"
-          ],
-          "name": "Mein Heimvorteil",
-          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/adb396677f374f87a3289437e070b546/APP_ICON?versionId=zv_J5wC0EshoOMoi1TYRp4NuPnUBbqq4&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1542179385&Signature=65wLBFwRWNc%2Bndxza68ieqy9gIw%3D",
-          "description": "Mit diesem Skill kann die aktuelle Playlist von Radio Gong Würzburg (106,9) abgerufen werden, es werden Künstler und Song genannt.\n\nDieser Skill ist ein inoffizielles Fan-Projekt.\n\nVerbesserungsvorschläge und Feedback gerne unter https://github.com/sgruendel/alexa-radio-gong/issues/new.",
-          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/fb50bf00f1b546f5ac9356422bcaad68/APP_ICON_LARGE?versionId=Sj02OM9_vKpQD82iT73ridGSyHs.d8f0&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1542179385&Signature=TXUaZm65jgggbjp1EIJ2b0NllzA%3D"
+          ]
         }
       },
       "isAvailableWorldwide": true,
       "testingInstructions": "See http://www.radiogong.com for current playlist\n\nChanges to previous version (lambda version 6):\n* Fix for new website www.radiogong.com",
       "category": "MUSIC_INFO_REVIEWS_AND_RECOGNITION_SERVICE",
       "distributionCountries": []
-    },
-    "apis": {
-      "custom": {
-        "endpoint": {
-          "sourceDir": "./src"
-        }
-      }
-    },
-    "manifestVersion": "1.0",
-    "permissions": [],
-    "privacyAndCompliance": {
-      "allowsPurchases": false,
-      "isExportCompliant": true,
-      "containsAds": false,
-      "isChildDirected": false,
-      "usesPersonalInfo": false
     }
   }
 }
