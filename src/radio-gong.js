@@ -8,7 +8,27 @@ const baseRequest = request.defaults({
     gzip: true,
 });
 
+const datumRE = /\(am ([0-9\.]*) um ([0-9:]*) Uhr\)/;
+
 var exports = module.exports = {};
+
+function normalizeMsg(msg) {
+    return msg
+        .replace('OE', 'Ortseinfahrt')
+        .replace('Richt.', 'Richtung')
+        .replace('VHH', 'Veitshöchheim')
+        .replace('WÜ', 'Würzburg');
+}
+
+function addSnippet(msg, snippet) {
+    if (snippet === '-') {
+        snippet = '';
+    }
+    if (!msg) {
+        return snippet;
+    }
+    return snippet ? (msg + ' ' + snippet) : msg;
+}
 
 exports.parsePlaylistBody = (body) => {
     const $ = cheerio.load(body);
@@ -41,18 +61,25 @@ exports.parseTrafficBody = (body) => {
     $('div .content-box-verlauf').map((i, alertDivs) => {
         const header = $('h2', alertDivs).text();
         const cells = $('div', alertDivs).map((j, div) => {
-            return $(div).text().trim().replace(/\n+/, ' ');
+            return $(div).text().replace(/\s+/g, ' ').trim();
         });
         var alerts = [];
         for (var j = 2; j < cells.length; j += 3) {
-            var alert = cells[j - 2];
-            if (cells[j - 1]) {
-                alert += ' ' + cells[j - 1];
+            var date, time;
+            if (cells[j - 2].match(datumRE)) {
+                const sep = cells[j - 2].split(datumRE);
+                cells[j - 2] = sep[0].trim();
+                date = sep[1];
+                time = sep[2];
             }
-            if (cells[j]) {
-                alert += ' ' + cells[j];
+
+            var alert = '';
+            if (!cells[j].startsWith(cells[j - 2])) {
+                alert = cells[j - 2];
             }
-            alerts.push(alert);
+            alert = addSnippet(alert, cells[j - 1]);
+            alert = addSnippet(alert, cells[j]);
+            alerts.push({ msg: normalizeMsg(alert), date: date, time: time });
         }
         if (header.indexOf('Verkehrsmeldung') >= 0) {
             traffic.messages = alerts;
