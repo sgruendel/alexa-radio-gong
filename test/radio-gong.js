@@ -25,6 +25,13 @@ describe('Radio Gong Website', () => {
     });
 
     describe('#parseTrafficBody()', () => {
+        it('should parse 0 traffic messages and 0 traffic controls', () => {
+            const body = fs.readFileSync('test/verkehr_0_blitzer_0.html');
+            const traffic = radioGong.parseTrafficBody(body);
+            expect(traffic.messages).to.have.length(0);
+            expect(traffic.controls).to.have.length(0);
+        });
+
         it('should parse 0 traffic messages and 1 traffic control', () => {
             const body = fs.readFileSync('test/verkehr_0_blitzer_1.html');
             const traffic = radioGong.parseTrafficBody(body);
