@@ -116,6 +116,24 @@ describe('Radio Gong Website', () => {
             expect(traffic.controls[5].time, '6. traffic control').to.equal('12:52');
         });
 
+        it('should parse 2 traffic messages and 1 traffic control', () => {
+            const body = fs.readFileSync('test/verkehr_2_blitzer_1.html');
+            const traffic = radioGong.parseTrafficBody(body);
+
+            expect(traffic.messages).to.have.length(2);
+            expect(traffic.messages[0].msg, '1. traffic message').to.equal('St2312 Waldbüttelbrunn zwischen Ausfahrt Waldbüttelbrunn und B 8 bei Höchberg in beiden Richtungen gesperrt, Unfall, Polizei ist vor Ort, Feuerwehr regelt den Verkehr, eine örtliche Umleitung ist eingerichtet');
+            expect(traffic.messages[0].date, '1. traffic message').to.equal('24.02.2019');
+            expect(traffic.messages[0].time, '1. traffic message').to.equal('13:44');
+            expect(traffic.messages[1].msg, '2. traffic message').to.equal('Unfall mit PKW und Roller auf der B8 von Höchberg kommend in Richtung Waldbüttelbrunn - Verkehrsbehinderung');
+            expect(traffic.messages[1].date, '2. traffic message').to.equal('24.02.2019');
+            expect(traffic.messages[1].time, '2. traffic message').to.equal('13:22');
+
+            expect(traffic.controls).to.have.length(1);
+            expect(traffic.controls[0].msg, '1. traffic control').to.equal('Kitzingen Richtung Hörblach 80ger Zone (Blitzanhänger)');
+            expect(traffic.controls[0].date, '1. traffic control').to.equal('24.02.2019');
+            expect(traffic.controls[0].time, '1. traffic control').to.equal('12:02');
+        });
+
         it('should parse 3 traffic messages and 3 traffic controls', () => {
             const body = fs.readFileSync('test/verkehr_3_blitzer_3.html');
             const traffic = radioGong.parseTrafficBody(body);
