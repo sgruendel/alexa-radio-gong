@@ -68,6 +68,21 @@ describe('Radio Gong Website', () => {
             expect(traffic.controls[4].time, '5. traffic control').to.equal('08:31');
         });
 
+        it('should parse 1 traffic message and 1 traffic control', () => {
+            const body = fs.readFileSync('test/verkehr_1_blitzer_1.html');
+            const traffic = radioGong.parseTrafficBody(body);
+
+            expect(traffic.messages).to.have.length(1);
+            expect(traffic.messages[0].msg, '1. traffic message').to.equal('A7 Fulda Richtung Würzburg zwischen Dreieck Schweinfurt/Werneck und Gramschatzer Wald Staugefahr, Unfallaufnahme, Verkehr wird über den Standstreifen geleitet, Gasse für Rettungs- und Einsatzfahrzeuge bilden');
+            expect(traffic.messages[0].date, '1. traffic message').to.equal('05.03.2019');
+            expect(traffic.messages[0].time, '1. traffic message').to.equal('20:10');
+
+            expect(traffic.controls).to.have.length(1);
+            expect(traffic.controls[0].msg, '1. traffic control').to.equal('A3 Würzburg-Nürnberg Ausfahrt Heidingsfeld Enforcement Trailer');
+            expect(traffic.controls[0].date, '1. traffic control').to.equal('05.03.2019');
+            expect(traffic.controls[0].time, '1. traffic control').to.equal('12:13');
+        });
+
         it('should parse 1 traffic message and 2 traffic controls', () => {
             const body = fs.readFileSync('test/verkehr_1_blitzer_2.html');
             const traffic = radioGong.parseTrafficBody(body);
