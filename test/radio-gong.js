@@ -134,6 +134,30 @@ describe('Radio Gong Website', () => {
             expect(traffic.controls[0].time, '1. traffic control').to.equal('12:02');
         });
 
+        it('should parse 2 traffic messages and 3 traffic controls', () => {
+            const body = fs.readFileSync('test/verkehr_2_blitzer_3.html');
+            const traffic = radioGong.parseTrafficBody(body);
+
+            expect(traffic.messages).to.have.length(2);
+            expect(traffic.messages[0].msg, '1. traffic message').to.equal('A3 Frankfurt Richtung Würzburg zwischen Würzburg/Kist und Würzburg-Heidingsfeld Unfall auf dem mittleren Fahrstreifen');
+            expect(traffic.messages[0].date, '1. traffic message').to.equal('01.03.2019');
+            expect(traffic.messages[0].time, '1. traffic message').to.equal('11:07');
+            expect(traffic.messages[1].msg, '2. traffic message').to.equal('B27 Karlstadt Richtung Würzburg zwischen Veitshöchheim und Rothofbrücke in Würzburg Gefahr durch Spanngurte auf dem rechten Fahrstreifen');
+            expect(traffic.messages[1].date, '2. traffic message').to.equal('01.03.2019');
+            expect(traffic.messages[1].time, '2. traffic message').to.equal('11:00');
+
+            expect(traffic.controls).to.have.length(3);
+            expect(traffic.controls[0].msg, '1. traffic control').to.equal('Gaibach Richtung Volkach kurz bevor es bergab geht Enforcement Trailer');
+            expect(traffic.controls[0].date, '1. traffic control').to.equal('01.03.2019');
+            expect(traffic.controls[0].time, '1. traffic control').to.equal('07:50');
+            expect(traffic.controls[1].msg, '2. traffic control').to.equal('Burggrumbach-Unterpleichfeld');
+            expect(traffic.controls[1].date, '2. traffic control').to.equal('01.03.2019');
+            expect(traffic.controls[1].time, '2. traffic control').to.equal('09:58');
+            expect(traffic.controls[2].msg, '3. traffic control').to.equal('B8 Mainbernheim 60ger, von Kitzingen kommend');
+            expect(traffic.controls[2].date, '3. traffic control').to.equal('01.03.2019');
+            expect(traffic.controls[2].time, '3. traffic control').to.equal('09:59');
+        });
+
         it('should parse 3 traffic messages and 3 traffic controls', () => {
             const body = fs.readFileSync('test/verkehr_3_blitzer_3.html');
             const traffic = radioGong.parseTrafficBody(body);
