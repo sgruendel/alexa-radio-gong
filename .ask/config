@@ -6,7 +6,7 @@
       "merge": {},
       "resources": {
         "manifest": {
-          "eTag": "1f8c5c1fc99151630b72676cec5f3685"
+          "eTag": "bf657e96838e677f792306c540d185a5"
         },
         "interactionModel": {
           "de-DE": {
@@ -15,13 +15,13 @@
         },
         "lambda": [
           {
-            "arn": "arn:aws:lambda:eu-west-1:467353799488:function:radioGong",
+            "arn": "arn:aws:lambda:eu-west-1:467353799488:function:radioGong:9",
             "awsRegion": "eu-west-1",
             "functionName": "radioGong",
             "alexaUsage": [
               "custom/default"
             ],
-            "revisionId": "92a4f6de-3064-47b7-be96-c2d64fe76fea",
+            "revisionId": "fd4325f8-7b2e-4504-acab-a5d1783d5a2a",
             "codeUri": "src",
             "handler": "index.handler",
             "runtime": "nodejs8.10"
