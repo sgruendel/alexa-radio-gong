@@ -20,6 +20,7 @@ function normalizeMsg(msg) {
         .replace('Ri ', 'Richtung ')
         .replace('Richt. ', 'Richtung ')
         .replace('v ', 'von ')
+        .replace('zw. ', 'zwischen ')
         .replace('KT', 'Kitzingen')
         .replace('VHH', 'Veitshöchheim')
         .replace('WÜ', 'Würzburg')
