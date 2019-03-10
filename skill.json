@@ -3,8 +3,10 @@
     "apis": {
       "custom": {
         "endpoint": {
+          "uri": "radioGong",
           "sourceDir": "./src"
-        }
+        },
+        "interfaces": []
       }
     },
     "manifestVersion": "1.0",
@@ -23,8 +25,8 @@
       "locales": {
         "de-DE": {
           "name": "Mein Heimvorteil",
-          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/27e1/3755eb87f4bf436a9709e5461008df45/APP_ICON?versionId=PagHv3IaV4QUWgTHX2_eHgpfkCYBMFi3&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1550477029&Signature=3IlHhzlow6IlRag%2BDYO26YoX%2BOk%3D",
-          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/9e9d/a0346fa7b5d146f3ac213d878ef5641c/APP_ICON_LARGE?versionId=A.vxpxgxakwLyWXKsiR1PMQDkNPeHM7Q&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1550477029&Signature=YeQcNIAcBwNFEqINZfr703XIjpk%3D",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/27e1/3755eb87f4bf436a9709e5461008df45/APP_ICON?versionId=PagHv3IaV4QUWgTHX2_eHgpfkCYBMFi3&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1551091922&Signature=MRekL4mHIuIyTebrLJjFwV5eZgU%3D",
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/9e9d/a0346fa7b5d146f3ac213d878ef5641c/APP_ICON_LARGE?versionId=A.vxpxgxakwLyWXKsiR1PMQDkNPeHM7Q&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1551091922&Signature=hYn4httgbcaiSG%2Fe85jshXTTycQ%3D",
           "summary": "Radio Gong (inoffiziell)",
           "description": "Mit diesem Skill kann die aktuelle Playlist von Radio Gong Würzburg (106,9) abgerufen werden, es werden Künstler und Song genannt.\n\nDieser Skill ist ein inoffizielles Fan-Projekt.\n\nVerbesserungsvorschläge und Feedback gerne unter https://github.com/sgruendel/alexa-radio-gong/issues/new.",
           "examplePhrases": [

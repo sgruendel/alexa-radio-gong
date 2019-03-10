@@ -85,4 +85,28 @@ describe('Mein Heimvorteil Skill', () => {
             },
         ]);
     });
+
+    describe('TrafficMessagesIntent', () => {
+        alexaTest.test([
+            {
+                request: alexaTest.getIntentRequest('TrafficMessagesIntent'),
+                saysLike: 'Es liegen zur Zeit ',
+                hasCardTitle: 'Radio Gong Verkehrsmeldungen',
+                hasCardTextLike: 'Es liegen zur Zeit ',
+                repromptsNothing: true, shouldEndSession: true,
+            },
+        ]);
+    });
+
+    describe('TrafficControlsIntent', () => {
+        alexaTest.test([
+            {
+                request: alexaTest.getIntentRequest('TrafficControlsIntent'),
+                saysLike: 'Es liegen zur Zeit ',
+                hasCardTitle: 'Radio Gong Blitzermeldungen',
+                hasCardTextLike: 'Es liegen zur Zeit ',
+                repromptsNothing: true, shouldEndSession: true,
+            },
+        ]);
+    });
 });

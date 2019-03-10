@@ -5,33 +5,77 @@
       "intents": [
         {
           "name": "RadioGongIntent",
+          "slots": [],
           "samples": [
             "was das ist",
             "was gerade läuft",
-            "nach der Playlist",
-            "nach dem Lied",
-            "nach dem Song",
-            "nach dem Stück",
-            "nach der Band",
-            "nach dem Künstler",
-            "nach der aktuellen Playlist",
-            "nach dem aktuellen Lied",
-            "nach dem aktuellen Song",
-            "nach dem aktuellen Stück",
-            "nach der aktuellen Band",
-            "nach dem aktuellen Künstler"
+            "der Playlist",
+            "dem Lied",
+            "dem Song",
+            "dem Stück",
+            "der Band",
+            "dem Künstler",
+            "der aktuellen Playlist",
+            "dem aktuellen Lied",
+            "dem aktuellen Song",
+            "dem aktuellen Stück",
+            "der aktuellen Band",
+            "dem aktuellen Künstler"
           ]
         },
         {
-          "name": "AMAZON.HelpIntent"
+          "name": "TrafficMessagesIntent",
+          "slots": [],
+          "samples": [
+            "Verkehr",
+            "Verkehrslage",
+            "Verkehrsmeldungen",
+            "dem Verkehr",
+            "der Verkehrslage",
+            "den Verkehrsmeldungen",
+            "dem aktuellen Verkehr",
+            "der aktuellen Verkehslage",
+            "den aktuellen Verkehrsmeldungen",
+            "wie der Verkehr ist",
+            "wie die Verkehrslage ist",
+            "welche Verkehrsmeldungen es gibt"
+          ]
         },
         {
-          "name": "AMAZON.StopIntent"
+          "name": "TrafficControlsIntent",
+          "slots": [],
+          "samples": [
+            "Blitzer",
+            "Blitzern",
+            "Blitzermeldungen",
+            "den Blitzern",
+            "den Blitzermeldungen",
+            "aktuellen Blitzern",
+            "aktuellen Blitzermeldungen",
+            "den aktuellen Blitzern",
+            "den aktuellen Blitzermeldungen",
+            "wo Blitzer stehen",
+            "wo Blitzer sind"
+          ]
         },
         {
-          "name": "AMAZON.CancelIntent"
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
         }
-      ]
+      ],
+      "types": []
     }
   }
 }

@@ -14,14 +14,23 @@ var exports = module.exports = {};
 
 function normalizeMsg(msg) {
     return msg
-        .replace('OE', 'Ortseinfahrt')
-        .replace('Richt.', 'Richtung')
+        .replace(/-->/g, '-')
+        .replace(/>/g, '-')
+        .replace('OE ', 'Ortseinfahrt ')
+        .replace('Ri ', 'Richtung ')
+        .replace('Richt. ', 'Richtung ')
+        .replace('v ', 'von ')
+        .replace('KT', 'Kitzingen')
         .replace('VHH', 'Veitshöchheim')
-        .replace('WÜ', 'Würzburg');
+        .replace('WÜ', 'Würzburg')
+        .replace('Nü ', 'Nürnberg ')
+        .replace('Nü-', 'Nürnberg-')
+        .replace('Wü ', 'Würzburg ')
+        .replace('Wü-', 'Würzburg-');
 }
 
 function addSnippet(msg, snippet) {
-    if (snippet === '-') {
+    if (snippet === '-' || snippet === '.-') {
         snippet = '';
     }
     if (!msg) {
@@ -60,6 +69,8 @@ exports.parseTrafficBody = (body) => {
     var traffic = {};
     $('div .content-box-verlauf').map((i, alertDivs) => {
         const header = $('h2', alertDivs).text();
+        const isTrafficMessage = header.indexOf('Verkehrsmeldung') >= 0;
+        const isTrafficControl = header.indexOf('Blitzermeldung') >= 0;
         const cells = $('div', alertDivs).map((j, div) => {
             return $(div).text().replace(/\s+/g, ' ').trim();
         });
@@ -74,16 +85,17 @@ exports.parseTrafficBody = (body) => {
             }
 
             var alert = '';
-            if (!cells[j].startsWith(cells[j - 2])) {
+            if (!isTrafficMessage) {
+                // first cell of traffic messages is redundant
                 alert = cells[j - 2];
             }
             alert = addSnippet(alert, cells[j - 1]);
             alert = addSnippet(alert, cells[j]);
             alerts.push({ msg: normalizeMsg(alert), date: date, time: time });
         }
-        if (header.indexOf('Verkehrsmeldung') >= 0) {
+        if (isTrafficMessage) {
             traffic.messages = alerts;
-        } else if (header.indexOf('Blitzermeldung') >= 0) {
+        } else if (isTrafficControl) {
             traffic.controls = alerts;
         }
     });

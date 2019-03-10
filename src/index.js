@@ -17,6 +17,7 @@ const logger = winston.createLogger({
 });
 
 const radioGong = require('./radio-gong');
+const utils = require('./utils');
 
 const SKILL_ID = 'amzn1.ask.skill.8b0359cd-df17-46f0-b1fa-509d6e9ca1cc';
 const languageStrings = {
@@ -26,10 +27,24 @@ const languageStrings = {
             STOP_MESSAGE: '<say-as interpret-as="interjection">bis dann</say-as>.',
             NOT_UNDERSTOOD_MESSAGE: 'Entschuldigung, das verstehe ich nicht. Bitte wiederhole das?',
             CURRENTLY_PLAYING_MESSAGE: 'Du hörst gerade {{song}} von {{artist}}.',
-            CANT_GET_PLAYLIST_MESSAGE: 'Es tut mir leid, das kann ich gerade nicht herausfinden.',
+            TRAFFIC_MESSAGES_MESSAGE: 'Es liegen zur Zeit folgende Verkehrsmeldungen vor: {{text}}',
+            TRAFFIC_NO_MESSAGES_MESSAGE: 'Es liegen zur Zeit keine Verkehrsmeldungen vor.',
+            TRAFFIC_CONTROLS_MESSAGE: 'Es liegen zur Zeit folgende Blitzermeldungen vor: {{text}}',
+            TRAFFIC_NO_CONTROLS_MESSAGE: 'Es liegen zur Zeit keine Blitzermeldungen vor.',
+            CANT_GET_DATA_MESSAGE: 'Es tut mir leid, das kann ich gerade nicht herausfinden.',
         },
     },
 };
+
+// returns true if the skill is running on a device with a display (show|spot)
+function supportsDisplay(handlerInput) {
+    const { context } = handlerInput.requestEnvelope;
+    return context
+        && context.System
+        && context.System.device
+        && context.System.device.supportedInterfaces
+        && context.System.device.supportedInterfaces.Display;
+}
 
 const RadioGongIntentHandler = {
     canHandle(handlerInput) {
@@ -63,11 +78,105 @@ const RadioGongIntentHandler = {
             })
             .catch((err) => {
                 logger.error(err.stack || err.toString());
-                const speechOutput = requestAttributes.t('CANT_GET_PLAYLIST_MESSAGE');
+                const speechOutput = requestAttributes.t('CANT_GET_DATA_MESSAGE');
                 response = handlerInput.responseBuilder
                     .speak(speechOutput)
                     .getResponse();
             });
+
+        return response;
+    },
+};
+
+const TrafficMessagesIntentHandler = {
+    canHandle(handlerInput) {
+        const { request } = handlerInput.requestEnvelope;
+        return request.type === 'IntentRequest' && request.intent.name === 'TrafficMessagesIntent';
+    },
+    async handle(handlerInput) {
+        const { request } = handlerInput.requestEnvelope;
+        logger.debug('request', request);
+
+        const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
+
+        var response;
+        try {
+            const traffic = await radioGong.getTraffic();
+            logger.debug('traffic messages', traffic.messages);
+            const responseData =
+                utils.getTrafficResponseData(requestAttributes, traffic.messages, 'TRAFFIC_NO_MESSAGES_MESSAGE', 'TRAFFIC_MESSAGES_MESSAGE');
+            logger.info(responseData.cardContent);
+
+            const title = 'Radio Gong Verkehrsmeldungen';
+            /* TODO
+            if (responseData.listItems.length > 0 && supportsDisplay(handlerInput)) {
+                handlerInput.responseBuilder
+                    .addRenderTemplateDirective({
+                        type: 'ListTemplate1',
+                        backButton: 'HIDDEN',
+                        // backgroundImage: measurementImage,
+                        title: title,
+                        listItems: responseData.listItems,
+                    });
+            } */
+            response = handlerInput.responseBuilder
+                .speak(responseData.speechOutput)
+                .withStandardCard(title, responseData.cardContent, 'https://www.radiogong.com/wp-content/grafiken/verkehrsmeldung-icon-80x75.png')
+                .getResponse();
+        } catch (err) {
+            logger.error(err.stack || err.toString());
+            const speechOutput = requestAttributes.t('CANT_GET_DATA_MESSAGE');
+            response = handlerInput.responseBuilder
+                .speak(speechOutput)
+                .getResponse();
+        }
+
+        return response;
+    },
+};
+
+const TrafficControlsIntentHandler = {
+    canHandle(handlerInput) {
+        const { request } = handlerInput.requestEnvelope;
+        return request.type === 'IntentRequest' && request.intent.name === 'TrafficControlsIntent';
+    },
+    async handle(handlerInput) {
+        const { request } = handlerInput.requestEnvelope;
+        logger.debug('request', request);
+
+        const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
+
+        var response;
+        try {
+            const traffic = await radioGong.getTraffic();
+            logger.debug('traffic controls', traffic.controls);
+            const responseData =
+                utils.getTrafficResponseData(requestAttributes, traffic.controls, 'TRAFFIC_NO_CONTROLS_MESSAGE', 'TRAFFIC_CONTROLS_MESSAGE');
+            logger.info(responseData.cardContent);
+
+            const title = 'Radio Gong Blitzermeldungen';
+            /* TODO
+            if (responseData.listItems.length > 0 && supportsDisplay(handlerInput)) {
+                handlerInput.responseBuilder
+                    .addRenderTemplateDirective({
+                        type: 'ListTemplate1',
+                        backButton: 'HIDDEN',
+                        // backgroundImage: measurementImage,
+                        title: title,
+                        listItems: responseData.listItems,
+                    });
+            } */
+            response = handlerInput.responseBuilder
+                .speak(responseData.speechOutput)
+                .withStandardCard(title, responseData.cardContent, 'https://www.radiogong.com/wp-content/grafiken/blitzer-icon-80x75.png')
+                .getResponse();
+        } catch (err) {
+            logger.error(err.stack || err.toString());
+            const speechOutput = requestAttributes.t('CANT_GET_DATA_MESSAGE');
+            response = handlerInput.responseBuilder
+                .speak(speechOutput)
+                .getResponse();
+        }
 
         return response;
     },
@@ -160,6 +269,8 @@ const LocalizationInterceptor = {
 exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         RadioGongIntentHandler,
+        TrafficMessagesIntentHandler,
+        TrafficControlsIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         SessionEndedRequestHandler)

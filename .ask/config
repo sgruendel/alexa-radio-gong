@@ -2,38 +2,31 @@
   "deploy_settings": {
     "default": {
       "skill_id": "amzn1.ask.skill.8b0359cd-df17-46f0-b1fa-509d6e9ca1cc",
-      "was_cloned": true,
+      "was_cloned": false,
+      "merge": {},
       "resources": {
         "manifest": {
-          "eTag": "733df8f8d17da90980b959b8e928d620"
+          "eTag": "1f8c5c1fc99151630b72676cec5f3685"
         },
         "interactionModel": {
           "de-DE": {
-            "eTag": "49779038876796087e31a5c96cf5dd37"
+            "eTag": "11255dce5c15331473618ee0e67e23ab"
           }
         },
         "lambda": [
           {
-            "arn": "arn:aws:lambda:eu-west-1:467353799488:function:radioGong:8",
+            "arn": "arn:aws:lambda:eu-west-1:467353799488:function:radioGong",
             "awsRegion": "eu-west-1",
             "functionName": "radioGong",
             "alexaUsage": [
               "custom/default"
             ],
-            "revisionId": "92a4f6de-3064-47b7-be96-c2d64fe76fea"
+            "revisionId": "92a4f6de-3064-47b7-be96-c2d64fe76fea",
+            "codeUri": "src",
+            "handler": "index.handler",
+            "runtime": "nodejs8.10"
           }
         ]
-      },
-      "merge": {
-        "manifest": {
-          "apis": {
-            "custom": {
-              "endpoint": {
-                "uri": "arn:aws:lambda:eu-west-1:467353799488:function:radioGong:8"
-              }
-            }
-          }
-        }
       }
     }
   }
