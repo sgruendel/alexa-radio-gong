@@ -1,6 +1,6 @@
 {
   "name": "alexa-radio-gong",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Alexa Skill for querying playlist from Radio Gong http://www.radiogong.com/",
   "main": "index.js",
   "scripts": {
@@ -31,11 +31,11 @@
   },
   "homepage": "https://github.com/sgruendel/alexa-radio-gong#readme",
   "dependencies": {
-    "ask-sdk-core": "^2.3.0",
-    "ask-sdk-model": "^1.11.2",
+    "ask-sdk-core": "^2.5.1",
+    "ask-sdk-model": "^1.12.0",
     "cheerio": "^1.0.0-rc.2",
-    "dashbot": "^10.2.4",
-    "i18next": "^14.0.1",
+    "dashbot": "^10.3.3",
+    "i18next": "^15.0.6",
     "i18next-sprintf-postprocessor": "^0.2.2",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5",
@@ -44,9 +44,9 @@
   "devDependencies": {
     "alexa-skill-test-framework": "^1.2.4",
     "chai": "^4.2.0",
-    "eslint": "^5.13.0",
+    "eslint": "^5.15.1",
     "eslint-config-strongloop": "^2.1.0",
-    "mocha": "^5.2.0",
+    "mocha": "^6.0.2",
     "nyc": "^13.2.0"
   },
   "eslintConfig": {
