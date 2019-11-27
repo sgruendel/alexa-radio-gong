@@ -50,11 +50,16 @@ exports.parsePlaylistBody = (body) => {
         }
         const date = $('div .playlist-date span', div);
         const day = date.slice(0, 1).text();
-        const time = date.slice(1, 2).text();
+        const time = date.slice(1, 2).text().replace(' Uhr', '');
         const interpret = $('div .playlist-interpret', div).text();
         const titel = $('div .playlist-titel', div).text();
+        const cover = $('div .playlist-cover a img', div).attr('src');
 
-        return { day: day, time: time, artist: interpret, song: titel };
+        var entry = { day: day, time: time, artist: interpret, song: titel };
+        if (!cover.endsWith('/nocover.jpg')) {
+            entry.cover = cover;
+        }
+        return entry;
     }).toArray();
 };
 

@@ -10,8 +10,18 @@ describe('Radio Gong Website', () => {
             const body = fs.readFileSync('test/radio-gong-playlist.html');
             const playlist = radioGong.parsePlaylistBody(body);
             expect(playlist).to.have.lengthOf(5);
-            expect(playlist[0].artist).to.equal('ROBIN SCHULZ');
-            expect(playlist[0].song).to.equal('Speechless (feat. Erika Sirola)');
+
+            expect(playlist[0].day, 'day of current entry').to.equal('27.11.2019');
+            expect(playlist[0].time, 'time of current entry').to.equal('11:06');
+            expect(playlist[0].artist, 'artist of current entry').to.equal('TOM GREGORY');
+            expect(playlist[0].song, 'song of current entry').to.equal('Small Steps');
+            expect(playlist[0].cover, 'cover of current entry').to.equal('/wp-content/grafiken/Cover2/614653.jpg');
+
+            expect(playlist[3].day, 'day of fourth entry').to.equal('27.11.2019');
+            expect(playlist[3].time, 'time of fourth entry').to.equal('10:46');
+            expect(playlist[3].artist, 'artist of fourth entry').to.equal('DANIEL POWTER');
+            expect(playlist[3].song, 'song of fourth entry').to.equal('BAD DAY');
+            expect(playlist[3].cover, 'cover of fourth entry').to.not.exist;
         });
     });
 
@@ -19,8 +29,11 @@ describe('Radio Gong Website', () => {
         it('should give songs playing', async function() {
             const playlist = await radioGong.getPlaylist();
             expect(playlist).to.have.lengthOf(5);
+            expect(playlist[0].day).to.match(/[0-3][0-9]\.[0-1][0-9]\.[0-9]{4}/);
+            expect(playlist[0].time).to.match(/[0-2][0-9]:[0-5][0-9]/);
             expect(playlist[0].artist).to.be.a('string');
             expect(playlist[0].song).to.be.a('string');
+            expect(playlist[0].cover).to.be.a('string');
         });
     });
 

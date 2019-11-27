@@ -20,6 +20,9 @@ const radioGong = require('./radio-gong');
 const utils = require('./utils');
 
 const SKILL_ID = 'amzn1.ask.skill.8b0359cd-df17-46f0-b1fa-509d6e9ca1cc';
+const RADIOGONG_IMAGE_URL = 'https://www.radiogong.com';
+const TITLE = 'Radio Gong Playlist'; // Used for card and display title
+
 const languageStrings = {
     de: {
         translation: {
@@ -35,16 +38,6 @@ const languageStrings = {
         },
     },
 };
-
-// returns true if the skill is running on a device with a display (show|spot)
-function supportsDisplay(handlerInput) {
-    const { context } = handlerInput.requestEnvelope;
-    return context
-        && context.System
-        && context.System.device
-        && context.System.device.supportedInterfaces
-        && context.System.device.supportedInterfaces.Display;
-}
 
 const RadioGongIntentHandler = {
     canHandle(handlerInput) {
@@ -69,12 +62,21 @@ const RadioGongIntentHandler = {
                         artist: entry.artist, song: entry.song,
                         interpolation: { escapeValue: false },
                     });
-
                 logger.debug(cardContent);
-                response = handlerInput.responseBuilder
-                    .speak(speechOutput)
-                    .withStandardCard('Radio Gong Playlist', cardContent)
-                    .getResponse();
+
+                if (entry.cover) {
+                    const smallImageUrl = RADIOGONG_IMAGE_URL + entry.cover;
+
+                    response = handlerInput.responseBuilder
+                        .speak(speechOutput)
+                        .withStandardCard(TITLE, cardContent, smallImageUrl)
+                        .getResponse();
+                } else {
+                    response = handlerInput.responseBuilder
+                        .speak(speechOutput)
+                        .withStandardCard(TITLE, cardContent)
+                        .getResponse();
+                }
             })
             .catch((err) => {
                 logger.error(err.stack || err.toString());
@@ -121,7 +123,7 @@ const TrafficMessagesIntentHandler = {
             } */
             response = handlerInput.responseBuilder
                 .speak(responseData.speechOutput)
-                .withStandardCard(title, responseData.cardContent, 'https://www.radiogong.com/wp-content/grafiken/verkehrsmeldung-icon-80x75.png')
+                .withStandardCard(title, responseData.cardContent, RADIOGONG_IMAGE_URL + '/wp-content/grafiken/verkehrsmeldung-icon-80x75.png')
                 .getResponse();
         } catch (err) {
             logger.error(err.stack || err.toString());
@@ -168,7 +170,7 @@ const TrafficControlsIntentHandler = {
             } */
             response = handlerInput.responseBuilder
                 .speak(responseData.speechOutput)
-                .withStandardCard(title, responseData.cardContent, 'https://www.radiogong.com/wp-content/grafiken/blitzer-icon-80x75.png')
+                .withStandardCard(title, responseData.cardContent, RADIOGONG_IMAGE_URL + '/wp-content/grafiken/blitzer-icon-80x75.png')
                 .getResponse();
         } catch (err) {
             logger.error(err.stack || err.toString());
