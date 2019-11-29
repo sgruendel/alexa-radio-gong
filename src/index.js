@@ -22,6 +22,10 @@ const utils = require('./utils');
 const SKILL_ID = 'amzn1.ask.skill.8b0359cd-df17-46f0-b1fa-509d6e9ca1cc';
 const RADIOGONG_IMAGE_URL = 'https://www.radiogong.com';
 const TITLE = 'Radio Gong Playlist'; // Used for card and display title
+const TITLE_TRAFFIC_MESSAGES = 'Radio Gong Verkehrsmeldungen';
+const ICON_TRAFFIC_MESSAGE = '/wp-content/grafiken/verkehrsmeldung-icon-80x75.png';
+const TITLE_TRAFFIC_CONTROLS = 'Radio Gong Blitzermeldungen';
+const ICON_TRAFFIC_CONTROL = '/wp-content/grafiken/blitzer-icon-80x75.png';
 
 const languageStrings = {
     de: {
@@ -30,8 +34,10 @@ const languageStrings = {
             STOP_MESSAGE: '<say-as interpret-as="interjection">bis dann</say-as>.',
             NOT_UNDERSTOOD_MESSAGE: 'Entschuldigung, das verstehe ich nicht. Bitte wiederhole das?',
             CURRENTLY_PLAYING_MESSAGE: 'Du hörst gerade {{song}} von {{artist}}.',
+            TRAFFIC_MESSAGES: 'Verkehrsmeldungen',
             TRAFFIC_MESSAGES_MESSAGE: 'Es liegen zur Zeit folgende Verkehrsmeldungen vor: {{text}}',
             TRAFFIC_NO_MESSAGES_MESSAGE: 'Es liegen zur Zeit keine Verkehrsmeldungen vor.',
+            TRAFFIC_CONTROLS: 'Blitzermeldungen',
             TRAFFIC_CONTROLS_MESSAGE: 'Es liegen zur Zeit folgende Blitzermeldungen vor: {{text}}',
             TRAFFIC_NO_CONTROLS_MESSAGE: 'Es liegen zur Zeit keine Blitzermeldungen vor.',
             CANT_GET_DATA_MESSAGE: 'Es tut mir leid, das kann ich gerade nicht herausfinden.',
@@ -106,10 +112,25 @@ const TrafficMessagesIntentHandler = {
             const traffic = await radioGong.getTraffic();
             logger.debug('traffic messages', traffic.messages);
             const responseData =
-                utils.getTrafficResponseData(requestAttributes, traffic.messages, 'TRAFFIC_NO_MESSAGES_MESSAGE', 'TRAFFIC_MESSAGES_MESSAGE');
-            logger.info(responseData.cardContent);
+                utils.getTrafficResponseData(traffic.messages,
+                    requestAttributes.t('TRAFFIC_MESSAGES'),
+                    RADIOGONG_IMAGE_URL + ICON_TRAFFIC_MESSAGE);
+            var speechOutput;
+            var cardContent;
+            if (responseData.listItems.length === 0) {
+                speechOutput = requestAttributes.t('TRAFFIC_NO_MESSAGES_MESSAGE');
+                cardContent = speechOutput;
+            } else {
+                speechOutput = requestAttributes.t('TRAFFIC_MESSAGES_MESSAGE', {
+                    text: responseData.speechOutputText,
+                });
+                cardContent = requestAttributes.t('TRAFFIC_MESSAGES_MESSAGE', {
+                    text: responseData.cardContentText,
+                    interpolation: { escapeValue: false },
+                });
+            }
+            logger.info(cardContent);
 
-            const title = 'Radio Gong Verkehrsmeldungen';
             /* TODO
             if (responseData.listItems.length > 0 && supportsDisplay(handlerInput)) {
                 handlerInput.responseBuilder
@@ -117,13 +138,13 @@ const TrafficMessagesIntentHandler = {
                         type: 'ListTemplate1',
                         backButton: 'HIDDEN',
                         // backgroundImage: measurementImage,
-                        title: title,
+                        title: TITLE_TRAFFIC_MESSAGES,
                         listItems: responseData.listItems,
                     });
             } */
             response = handlerInput.responseBuilder
-                .speak(responseData.speechOutput)
-                .withStandardCard(title, responseData.cardContent, RADIOGONG_IMAGE_URL + '/wp-content/grafiken/verkehrsmeldung-icon-80x75.png')
+                .speak(speechOutput)
+                .withStandardCard(TITLE_TRAFFIC_MESSAGES, cardContent, RADIOGONG_IMAGE_URL + ICON_TRAFFIC_MESSAGE)
                 .getResponse();
         } catch (err) {
             logger.error(err.stack || err.toString());
@@ -153,10 +174,25 @@ const TrafficControlsIntentHandler = {
             const traffic = await radioGong.getTraffic();
             logger.debug('traffic controls', traffic.controls);
             const responseData =
-                utils.getTrafficResponseData(requestAttributes, traffic.controls, 'TRAFFIC_NO_CONTROLS_MESSAGE', 'TRAFFIC_CONTROLS_MESSAGE');
-            logger.info(responseData.cardContent);
+                utils.getTrafficResponseData(traffic.controls,
+                    requestAttributes.t('TRAFFIC_CONTROLS'),
+                    RADIOGONG_IMAGE_URL + ICON_TRAFFIC_CONTROL);
+            var speechOutput;
+            var cardContent;
+            if (responseData.listItems.length === 0) {
+                speechOutput = requestAttributes.t('TRAFFIC_NO_CONTROLS_MESSAGE');
+                cardContent = speechOutput;
+            } else {
+                speechOutput = requestAttributes.t('TRAFFIC_CONTROLS_MESSAGE', {
+                    text: responseData.speechOutputText,
+                });
+                cardContent = requestAttributes.t('TRAFFIC_CONTROLS_MESSAGE', {
+                    text: responseData.cardContentText,
+                    interpolation: { escapeValue: false },
+                });
+            }
+            logger.info(cardContent);
 
-            const title = 'Radio Gong Blitzermeldungen';
             /* TODO
             if (responseData.listItems.length > 0 && supportsDisplay(handlerInput)) {
                 handlerInput.responseBuilder
@@ -164,13 +200,13 @@ const TrafficControlsIntentHandler = {
                         type: 'ListTemplate1',
                         backButton: 'HIDDEN',
                         // backgroundImage: measurementImage,
-                        title: title,
+                        title: TITLE_TRAFFIC_CONTROLS,
                         listItems: responseData.listItems,
                     });
             } */
             response = handlerInput.responseBuilder
-                .speak(responseData.speechOutput)
-                .withStandardCard(title, responseData.cardContent, RADIOGONG_IMAGE_URL + '/wp-content/grafiken/blitzer-icon-80x75.png')
+                .speak(speechOutput)
+                .withStandardCard(TITLE_TRAFFIC_CONTROLS, cardContent, RADIOGONG_IMAGE_URL + ICON_TRAFFIC_CONTROL)
                 .getResponse();
         } catch (err) {
             logger.error(err.stack || err.toString());

@@ -4,33 +4,28 @@ const Alexa = require('ask-sdk-core');
 
 var exports = module.exports = {};
 
-exports.getTrafficResponseData = function(requestAttributes, msgs, noMessagesKey, messagesKey) {
-    var speechOutput;
-    var cardContent;
+exports.getTrafficResponseData = function(msgs, description, backgroundImageUrl) {
     var listItems;
+    var speechOutputText;
+    var cardContentText;
 
     if (msgs.length === 0) {
-        speechOutput = requestAttributes.t(noMessagesKey);
-        cardContent = speechOutput;
         listItems = [];
+        speechOutputText = undefined;
+        cardContentText = undefined;
     } else {
-        speechOutput = requestAttributes.t(messagesKey, {
-            text: msgs.reduce(
-                (result, message) => result + message.msg + '. ',
-                ''),
-        });
-        cardContent = requestAttributes.t(messagesKey, {
-            text: msgs.reduce(
-                (result, message) => result + message.msg + '.\n\n',
-                ''),
-            interpolation: { escapeValue: false },
-        });
+        speechOutputText = msgs.reduce(
+            (result, message, i) => result + message.msg + ((i + 1 < msgs.length) ? '. ' : '.'),
+            '');
+        cardContentText = msgs.reduce(
+            (result, message, i) => result + message.msg + ((i + 1 < msgs.length) ? '.\n\n' : '.'),
+            '');
         listItems = msgs.map(message => {
             return {
                 // image:
                 backgroundImage: new Alexa.ImageHelper()
-                    .withDescription('Verkehrsmeldungen')
-                    .addImageInstance('https://www.radiogong.com/wp-content/grafiken/verkehrsmeldung-icon-80x75.png', 'X_SMALL', 80, 75)
+                    .withDescription(description)
+                    .addImageInstance(backgroundImageUrl, 'X_SMALL', 80, 75)
                     .getImage(),
                 textContent: new Alexa.PlainTextContentHelper()
                     .withPrimaryText(message.msg)
@@ -39,5 +34,5 @@ exports.getTrafficResponseData = function(requestAttributes, msgs, noMessagesKey
             };
         });
     }
-    return { speechOutput: speechOutput, cardContent: cardContent, listItems: listItems };
+    return { listItems: listItems, speechOutputText: speechOutputText, cardContentText: cardContentText };
 };
