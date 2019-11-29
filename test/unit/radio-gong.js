@@ -2,7 +2,7 @@
 
 const expect = require('chai').expect;
 const fs = require('fs');
-const radioGong = require('../src/radio-gong');
+const radioGong = require('../../src/radio-gong');
 
 describe('Radio Gong Website', () => {
     describe('#parsePlaylistBody()', () => {
