@@ -6,7 +6,7 @@ var exports = module.exports = {};
 
 exports.execFile = 'ask';
 //exports.execArgs = ['simulate', '-s', 'amzn1.ask.skill.8b0359cd-df17-46f0-b1fa-509d6e9ca1cc', '-l', 'de-DE', '--force-new-session', '-t' ];
-exports.execArgs = ['simulate', '-s', 'amzn1.ask.skill.8b0359cd-df17-46f0-b1fa-509d6e9ca1cc', '-l', 'de-DE', '-t' ];
+exports.execArgs = ['simulate', '-s', 'amzn1.ask.skill.8b0359cd-df17-46f0-b1fa-509d6e9ca1cc', '--stage', 'live', '-l', 'de-DE', '-t' ];
 
 exports.verifyResult = (error, stdout) => {
     //console.log('stdout', stdout);
