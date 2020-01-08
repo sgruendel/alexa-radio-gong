@@ -3,4 +3,4 @@ node_js:
   - 12
 install:
   - npm -g install ask-cli
-  - npm ci
+  - npm install
