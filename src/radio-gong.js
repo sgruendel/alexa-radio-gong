@@ -16,6 +16,7 @@ function normalizeMsg(msg) {
     return msg
         .replace(/-->/g, '-')
         .replace(/>/g, '-')
+        .replace('OA ', 'Ortsausgang ')
         .replace('OE ', 'Ortseinfahrt ')
         .replace('Ri ', 'Richtung ')
         .replace('Richt. ', 'Richtung ')
@@ -55,7 +56,7 @@ exports.parsePlaylistBody = (body) => {
         const titel = $('div .playlist-titel', div).text();
         const cover = $('div .playlist-cover a img', div).attr('src');
 
-        var entry = { day: day, time: time, artist: interpret, song: titel };
+        let entry = { day: day, time: time, artist: interpret, song: titel };
         if (!cover.endsWith('/nocover.jpg')) {
             entry.cover = cover;
         }
@@ -72,7 +73,7 @@ exports.getPlaylist = async function() {
 
 exports.parseTrafficBody = (body) => {
     const $ = cheerio.load(body);
-    var traffic = {};
+    let traffic = {};
     $('div .content-box-verlauf').map((i, alertDivs) => {
         const header = $('h2', alertDivs).text();
         const isTrafficMessage = header.indexOf('Verkehrsmeldung') >= 0;
@@ -80,9 +81,9 @@ exports.parseTrafficBody = (body) => {
         const cells = $('div', alertDivs).map((j, div) => {
             return $(div).text().replace(/\s+/g, ' ').trim();
         });
-        var alerts = [];
-        for (var j = 2; j < cells.length; j += 3) {
-            var date, time;
+        let alerts = [];
+        for (let j = 2; j < cells.length; j += 3) {
+            let date, time;
             if (cells[j - 2].match(datumRE)) {
                 const sep = cells[j - 2].split(datumRE);
                 cells[j - 2] = sep[0].trim();
@@ -90,7 +91,7 @@ exports.parseTrafficBody = (body) => {
                 time = sep[2];
             }
 
-            var alert = '';
+            let alert = '';
             if (!isTrafficMessage) {
                 // first cell of traffic messages is redundant
                 alert = cells[j - 2];
