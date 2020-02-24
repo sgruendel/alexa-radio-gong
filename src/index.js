@@ -220,6 +220,22 @@ const TrafficControlsIntentHandler = {
     },
 };
 
+const FallbackIntentHandler = {
+    canHandle(handlerInput) {
+        const { request } = handlerInput.requestEnvelope;
+        return request.type === 'IntentRequest' && request.intent.name === 'AMAZON.FallbackIntent';
+    },
+    handle(handlerInput) {
+        const { request } = handlerInput.requestEnvelope;
+        logger.debug('request', request);
+
+        const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
+        return handlerInput.responseBuilder
+            .speak(requestAttributes.t('HELP_MESSAGE'))
+            .getResponse();
+    },
+};
+
 const HelpIntentHandler = {
     canHandle(handlerInput) {
         const { request } = handlerInput.requestEnvelope;
@@ -309,6 +325,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         RadioGongIntentHandler,
         TrafficMessagesIntentHandler,
         TrafficControlsIntentHandler,
+        FallbackIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         SessionEndedRequestHandler)

@@ -23,6 +23,16 @@ describe('Mein Heimvorteil Skill', () => {
         ]);
     });
 
+    describe('FallbackIntent', () => {
+        alexaTest.test([
+            {
+                request: alexaTest.getIntentRequest('AMAZON.FallbackIntent'),
+                says: 'Du kannst sagen „Öffne Mein Heimvorteil“ und ich sage dir was gerade auf Radio Gong Würzburg läuft.',
+                repromptsNothing: true, shouldEndSession: true,
+            },
+        ]);
+    });
+
     describe('HelpIntent', () => {
         alexaTest.test([
             {

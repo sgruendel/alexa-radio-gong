@@ -73,9 +73,14 @@
         {
           "name": "AMAZON.NavigateHomeIntent",
           "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
         }
       ],
       "types": []
     }
-  }
+  },
+  "version": "5"
 }
