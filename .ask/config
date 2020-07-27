@@ -6,16 +6,16 @@
       "merge": {},
       "resources": {
         "manifest": {
-          "eTag": "15c197b1b3869e151e51e8c2ef301dec"
+          "eTag": "db624311570d29efe19612c8dae5a29a"
         },
         "interactionModel": {
           "de-DE": {
-            "eTag": "a4271e80106d31bd170b78a5fe20da86"
+            "eTag": "d36ec7ffbb78f53eb873cf9c7a2a0495"
           }
         },
         "lambda": [
           {
-            "arn": "arn:aws:lambda:eu-west-1:467353799488:function:radioGong:10",
+            "arn": "arn:aws:lambda:eu-west-1:467353799488:function:radioGong:11",
             "awsRegion": "eu-west-1",
             "functionName": "radioGong",
             "alexaUsage": [
