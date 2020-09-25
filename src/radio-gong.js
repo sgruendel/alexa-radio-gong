@@ -1,12 +1,9 @@
 'use strict';
 
-const request = require('request-promise-native');
+const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 
-const baseRequest = request.defaults({
-    baseUrl: 'https://www.radiogong.com',
-    gzip: true,
-});
+const BASE_URL = 'https://www.radiogong.com/';
 
 const datumRE = /\(am ([0-9\.]*) um ([0-9:]*) Uhr\)/;
 
@@ -65,10 +62,8 @@ exports.parsePlaylistBody = (body) => {
 };
 
 exports.getPlaylist = async function() {
-    const options = {
-        uri: 'radio-gong-playlist/',
-    };
-    return exports.parsePlaylistBody(await baseRequest(options));
+    const response = await fetch(BASE_URL + 'radio-gong-playlist/');
+    return exports.parsePlaylistBody(await response.text());
 };
 
 exports.parseTrafficBody = (body) => {
@@ -110,8 +105,6 @@ exports.parseTrafficBody = (body) => {
 };
 
 exports.getTraffic = async function() {
-    const options = {
-        uri: '/verkehr-und-blitzer/',
-    };
-    return exports.parseTrafficBody(await baseRequest(options));
+    const response = await fetch(BASE_URL + 'verkehr-und-blitzer/');
+    return exports.parseTrafficBody(await response.text());
 };

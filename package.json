@@ -1,6 +1,6 @@
 {
   "name": "alexa-radio-gong",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "description": "Alexa Skill for querying playlist from Radio Gong http://www.radiogong.com/",
   "main": "index.js",
   "scripts": {
@@ -33,22 +33,21 @@
   },
   "homepage": "https://github.com/sgruendel/alexa-radio-gong#readme",
   "dependencies": {
-    "ask-sdk-core": "^2.9.0",
-    "ask-sdk-model": "^1.29.0",
-    "cheerio": "^0.22.0",
-    "i18next": "^19.6.2",
-    "i18next-sprintf-postprocessor": "^0.2.2",
-    "request": "^2.88.2",
-    "request-promise-native": "^1.0.9",
-    "winston": "^3.3.3"
+    "ask-sdk-core": "2.9.0",
+    "ask-sdk-model": "1.33.0",
+    "cheerio": "0.22.0",
+    "i18next": "19.7.0",
+    "i18next-sprintf-postprocessor": "0.2.2",
+    "node-fetch": "^2.6.1",
+    "winston": "3.3.3"
   },
   "devDependencies": {
-    "alexa-skill-test-framework": "^1.2.4",
-    "chai": "^4.2.0",
-    "eslint": "^7.1.0",
-    "eslint-config-strongloop": "^2.1.0",
-    "mocha": "^8.0.1",
-    "nyc": "^15.0.1"
+    "alexa-skill-test-framework": "1.2.4",
+    "chai": "4.2.0",
+    "eslint": "7.9.0",
+    "eslint-config-strongloop": "2.1.0",
+    "mocha": "8.1.3",
+    "nyc": "15.1.0"
   },
   "eslintConfig": {
     "parserOptions": {
