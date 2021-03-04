@@ -41,28 +41,28 @@ function addSnippet(msg, snippet) {
 exports.parsePlaylistBody = (body) => {
     const $ = cheerio.load(body);
 
-    return $('div .playlist-divitem').map((i, div) => {
+    return $('div .track').map((i, div) => {
         if (i >= 5) {
             // only return last 5 songs played, otherwise we're too slow
             return undefined;
         }
-        const date = $('div .playlist-date span', div);
-        const day = date.slice(0, 1).text();
-        const time = date.slice(1, 2).text().replace(' Uhr', '');
-        const interpret = $('div .playlist-interpret', div).text();
-        const titel = $('div .playlist-titel', div).text();
-        const cover = $('div .playlist-cover a img', div).attr('src');
+        const date = $('div .track-time', div).text().split(' ');
+        const day = date[0];
+        const time = date[1];
+        const artist = $('div .track-artist', div).text();
+        const title = $('div .track-title', div).text();
+        const covers = $('div .track-artwork-container img', div).attr('data-srcset').split(' ');
 
-        let entry = { day: day, time: time, artist: interpret, song: titel };
-        if (!cover.endsWith('/nocover.jpg')) {
-            entry.cover = cover;
+        let entry = { day, time, artist, title };
+        if (covers.length > 2 && covers[2].indexOf('/cover-placeholder-gong.jpg') < 0) {
+            entry.cover = covers[2];
         }
         return entry;
     }).toArray();
 };
 
 exports.getPlaylist = async function() {
-    const response = await fetch(BASE_URL + 'radio-gong-playlist/');
+    const response = await fetch(BASE_URL + 'programm/playlist');
     return exports.parsePlaylistBody(await response.text());
 };
 
@@ -105,6 +105,7 @@ exports.parseTrafficBody = (body) => {
 };
 
 exports.getTraffic = async function() {
-    const response = await fetch(BASE_URL + 'verkehr-und-blitzer/');
-    return exports.parseTrafficBody(await response.text());
+    // const response = await fetch(BASE_URL + 'aktuelles/verkehr');
+    // return exports.parseTrafficBody(await response.text());
+    return { messages: [], controls: [] };
 };

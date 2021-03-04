@@ -32,7 +32,7 @@ const languageStrings = {
             HELP_MESSAGE: 'Du kannst sagen „Öffne Mein Heimvorteil“ und ich sage dir was gerade auf Radio Gong Würzburg läuft.',
             STOP_MESSAGE: '<say-as interpret-as="interjection">bis dann</say-as>.',
             NOT_UNDERSTOOD_MESSAGE: 'Entschuldigung, das verstehe ich nicht. Bitte wiederhole das?',
-            CURRENTLY_PLAYING_MESSAGE: 'Du hörst gerade {{song}} von {{artist}}.',
+            CURRENTLY_PLAYING_MESSAGE: 'Du hörst gerade {{title}} von {{artist}}.',
             TRAFFIC_MESSAGES: 'Verkehrsmeldungen',
             TRAFFIC_MESSAGES_MESSAGE: 'Es liegen zur Zeit folgende Verkehrsmeldungen vor: {{text}}',
             TRAFFIC_NO_MESSAGES_MESSAGE: 'Es liegen zur Zeit keine Verkehrsmeldungen vor.',
@@ -61,20 +61,18 @@ const RadioGongIntentHandler = {
             .then((playlist) => {
                 logger.debug('playlist', playlist);
                 const entry = playlist[0];
-                const speechOutput = requestAttributes.t('CURRENTLY_PLAYING_MESSAGE', { artist: entry.artist, song: entry.song });
+                const speechOutput = requestAttributes.t('CURRENTLY_PLAYING_MESSAGE', { artist: entry.artist, title: entry.title });
                 const cardContent = requestAttributes.t('CURRENTLY_PLAYING_MESSAGE',
                     {
-                        artist: entry.artist, song: entry.song,
+                        artist: entry.artist, title: entry.title,
                         interpolation: { escapeValue: false },
                     });
                 logger.debug(cardContent);
 
                 if (entry.cover) {
-                    const smallImageUrl = RADIOGONG_IMAGE_URL + entry.cover;
-
                     response = handlerInput.responseBuilder
                         .speak(speechOutput)
-                        .withStandardCard(TITLE, cardContent, smallImageUrl)
+                        .withStandardCard(TITLE, cardContent, entry.cover)
                         .getResponse();
                 } else {
                     response = handlerInput.responseBuilder

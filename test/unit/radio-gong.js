@@ -11,17 +11,17 @@ describe('Radio Gong Website', () => {
             const playlist = radioGong.parsePlaylistBody(body);
             expect(playlist).to.have.lengthOf(5);
 
-            expect(playlist[0].day, 'day of current entry').to.equal('27.11.2019');
-            expect(playlist[0].time, 'time of current entry').to.equal('11:06');
-            expect(playlist[0].artist, 'artist of current entry').to.equal('TOM GREGORY');
-            expect(playlist[0].song, 'song of current entry').to.equal('Small Steps');
-            expect(playlist[0].cover, 'cover of current entry').to.equal('/wp-content/grafiken/Cover2/614653.jpg');
+            expect(playlist[0].day, 'day of current entry').to.equal('04.03.2021');
+            expect(playlist[0].time, 'time of current entry').to.equal('21:41');
+            expect(playlist[0].artist, 'artist of current entry').to.equal('ATB x TOPIC x A7S');
+            expect(playlist[0].title, 'title of current entry').to.equal('Your Love (9PM)');
+            expect(playlist[0].cover, 'cover of current entry').to.equal('https://sos-de-fra-1.exo.io/gong-tracks-bucket/00/00/76/93/_576x576_crop_center-center_60_line/43.jpg?mtime=20210304013210&focal=none&tmtime=20210304013514');
 
-            expect(playlist[3].day, 'day of fourth entry').to.equal('27.11.2019');
-            expect(playlist[3].time, 'time of fourth entry').to.equal('10:46');
-            expect(playlist[3].artist, 'artist of fourth entry').to.equal('DANIEL POWTER');
-            expect(playlist[3].song, 'song of fourth entry').to.equal('BAD DAY');
-            expect(playlist[3].cover, 'cover of fourth entry').to.not.exist;
+            expect(playlist[4].day, 'day of fourth entry').to.equal('04.03.2021');
+            expect(playlist[4].time, 'time of fourth entry').to.equal('21:25');
+            expect(playlist[4].artist, 'artist of fourth entry').to.equal('NEA');
+            expect(playlist[4].title, 'title of fourth entry').to.equal('Some Say (Felix Jaehn Remix)');
+            expect(playlist[4].cover, 'cover of fourth entry').to.not.exist;
         });
     });
 
@@ -32,12 +32,12 @@ describe('Radio Gong Website', () => {
             expect(playlist[0].day).to.match(/[0-3][0-9]\.[0-1][0-9]\.[0-9]{4}/);
             expect(playlist[0].time).to.match(/[0-2][0-9]:[0-5][0-9]/);
             expect(playlist[0].artist).to.be.a('string');
-            expect(playlist[0].song).to.be.a('string');
+            expect(playlist[0].title).to.be.a('string');
             // cover is optional: expect(playlist[0].cover).to.be.a('string');
         });
     });
 
-    describe('#parseTrafficBody()', () => {
+    xdescribe('#parseTrafficBody()', () => {
         it('should parse 0 traffic messages and 0 traffic controls', () => {
             const body = fs.readFileSync('test/verkehr_0_blitzer_0.html');
             const traffic = radioGong.parseTrafficBody(body);
@@ -214,7 +214,7 @@ describe('Radio Gong Website', () => {
         });
     });
 
-    describe('#getTraffic()', () => {
+    xdescribe('#getTraffic()', () => {
         it('should give traffic controls', async function() {
             const traffic = await radioGong.getTraffic();
             expect(traffic.messages).to.exist;
