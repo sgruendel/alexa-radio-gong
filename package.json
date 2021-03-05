@@ -1,6 +1,6 @@
 {
   "name": "alexa-radio-gong",
-  "version": "2.4.0",
+  "version": "2.3.0",
   "description": "Alexa Skill for querying playlist from Radio Gong http://www.radiogong.com/",
   "main": "index.js",
   "scripts": {
