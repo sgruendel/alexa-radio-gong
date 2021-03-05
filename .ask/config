@@ -6,7 +6,7 @@
       "merge": {},
       "resources": {
         "manifest": {
-          "eTag": "db624311570d29efe19612c8dae5a29a"
+          "eTag": "78fac5885e2db826da5559393e57db57"
         },
         "interactionModel": {
           "de-DE": {
@@ -15,7 +15,7 @@
         },
         "lambda": [
           {
-            "arn": "arn:aws:lambda:eu-west-1:467353799488:function:radioGong:11",
+            "arn": "arn:aws:lambda:eu-west-1:467353799488:function:radioGong:12",
             "awsRegion": "eu-west-1",
             "functionName": "radioGong",
             "alexaUsage": [

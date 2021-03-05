@@ -3,7 +3,7 @@
     "apis": {
       "custom": {
         "endpoint": {
-          "uri": "arn:aws:lambda:eu-west-1:467353799488:function:radioGong:11",
+          "uri": "arn:aws:lambda:eu-west-1:467353799488:function:radioGong:12",
           "sourceDir": "./src"
         },
         "interfaces": []
@@ -45,7 +45,7 @@
         }
       },
       "isAvailableWorldwide": true,
-      "testingInstructions": "See http://www.radiogong.com for current playlist\n\nChanges to previous version (lambda version 10):\n* Replace \"OA\" with \"Ortsausgang\" in traffic text.",
+      "testingInstructions": "See https://www.radiogong.com/programm/playlist for current playlist\n\nChanges to previous version (lambda version 11):\n* Works with new Radio Gong website.",
       "category": "MUSIC_INFO_REVIEWS_AND_RECOGNITION_SERVICE",
       "distributionCountries": []
     }
