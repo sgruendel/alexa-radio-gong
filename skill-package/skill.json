@@ -1,0 +1,52 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "de-DE": {
+          "summary": "Radio Gong (inoffiziell)",
+          "examplePhrases": [
+            "Alexa, starte mein Heimvorteil",
+            "Alexa, frage mein Heimvorteil nach der aktuellen Playlist",
+            "Alexa, frage mein Heimvorteil nach Blitzern"
+          ],
+          "keywords": [
+            "music",
+            "playlist",
+            "radio",
+            "gong",
+            "würzburg"
+          ],
+          "name": "Mein Heimvorteil",
+          "description": "Mit diesem Skill kann die aktuelle Playlist von Radio Gong Würzburg (106,9) abgerufen werden, es werden Künstler und Song genannt.\n\nAußerdem können die aktuellen Verkehrs- und Blitzermeldungen abgefragt werden über \"Alexa, frage Mein Heimvorteil nach Verkehrsmeldungen\" und \"Alexa, frage Mein Heimvorteil nach Blitzern\".\n\nDieser Skill ist ein inoffizielles Fan-Projekt.\n\nVerbesserungsvorschläge und Feedback gerne unter https://github.com/sgruendel/alexa-radio-gong/issues/new.",
+          "smallIconUri": "file://assets/small_icon.png",
+          "updatesDescription": "Jetzt können auch die aktuellen Verkehrs- und Blitzermeldungen abgefragt werden über \"Alexa, frage Mein Heimvorteil nach Verkehrsmeldungen\" und \"Alexa, frage Mein Heimvorteil nach Blitzern\".",
+          "largeIconUri": "file://assets/large_icon.png"
+        }
+      },
+      "isAvailableWorldwide": true,
+      "testingInstructions": "See https://www.radiogong.com/programm/playlist for current playlist\n\nChanges to previous version (lambda version 11):\n* Works with new Radio Gong website.",
+      "category": "MUSIC_INFO_REVIEWS_AND_RECOGNITION_SERVICE",
+      "distributionCountries": []
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "uri": "arn:aws:lambda:eu-west-1:467353799488:function:radioGong"
+        },
+        "interfaces": []
+      }
+    },
+    "manifestVersion": "1.0",
+    "permissions": [],
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "locales": {
+        "de-DE": {}
+      },
+      "containsAds": false,
+      "isExportCompliant": true,
+      "isChildDirected": false,
+      "usesPersonalInfo": false
+    }
+  }
+}
