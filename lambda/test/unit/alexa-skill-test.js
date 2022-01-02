@@ -5,7 +5,7 @@ const alexaTest = require('alexa-skill-test-framework');
 
 // initialize the testing framework
 alexaTest.initialize(
-    require('../../src/index'),
+    require('../../index'),
     'amzn1.ask.skill.8b0359cd-df17-46f0-b1fa-509d6e9ca1cc',
     'amzn1.ask.account.VOID');
 alexaTest.setLocale('de-DE');
