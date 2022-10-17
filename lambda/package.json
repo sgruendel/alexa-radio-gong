@@ -33,7 +33,7 @@
     "cheerio": "1.0.0-rc.12",
     "i18next": "21.10.0",
     "i18next-sprintf-postprocessor": "0.2.2",
-    "node-fetch": "^2.6.7",
+    "node-fetch": "^3.2.10",
     "winston": "3.8.2"
   },
   "devDependencies": {
