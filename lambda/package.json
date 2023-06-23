@@ -29,7 +29,7 @@
   "homepage": "https://github.com/sgruendel/alexa-radio-gong#readme",
   "dependencies": {
     "ask-sdk-core": "^2.14.0",
-    "ask-sdk-model": "^1.67.0",
+    "ask-sdk-model": "^1.68.0",
     "cheerio": "^1.0.0-rc.12",
     "i18next": "^22.4.15",
     "i18next-sprintf-postprocessor": "^0.2.2",
