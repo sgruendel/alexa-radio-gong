@@ -1,8 +1,9 @@
 {
     "name": "alexa-radio-gong",
-    "version": "2.3.0",
+    "version": "2.4.0",
     "description": "Alexa Skill for querying playlist from Radio Gong http://www.radiogong.com/",
-    "main": "index.js",
+    "main": "index.cjs",
+    "type": "module",
     "scripts": {
         "reinstall": "rm -rf ./node_modules && npm install",
         "test:unit": "c8 --reporter=lcov --reporter=text mocha --timeout=5000 test/unit/*",
@@ -34,7 +35,7 @@
         "cheerio": "^1.0.0-rc.12",
         "i18next": "^25.8.1",
         "i18next-sprintf-postprocessor": "^0.2.2",
-        "node-fetch": "^2.7.0",
+        "node-fetch": "^3.3.2",
         "winston": "^3.19.0"
     },
     "devDependencies": {

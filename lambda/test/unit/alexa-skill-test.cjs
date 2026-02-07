@@ -1,17 +1,16 @@
-'use strict';
-
 // include the testing framework
 const alexaTest = require('alexa-skill-test-framework');
 
 // initialize the testing framework
 alexaTest.initialize(
-    require('../../index'),
+    require('../../index.cjs'),
     'amzn1.ask.skill.8b0359cd-df17-46f0-b1fa-509d6e9ca1cc',
-    'amzn1.ask.account.VOID');
+    'amzn1.ask.account.VOID',
+    'amzn1.ask.device.VOID',
+);
 alexaTest.setLocale('de-DE');
 
 describe('Mein Heimvorteil Skill', () => {
-
     describe('ErrorHandler', () => {
         alexaTest.test([
             {
@@ -28,7 +27,8 @@ describe('Mein Heimvorteil Skill', () => {
             {
                 request: alexaTest.getIntentRequest('AMAZON.FallbackIntent'),
                 says: 'Du kannst sagen „Öffne Mein Heimvorteil“ und ich sage dir was gerade auf Radio Gong Würzburg läuft.',
-                repromptsNothing: true, shouldEndSession: true,
+                repromptsNothing: true,
+                shouldEndSession: true,
             },
         ]);
     });
@@ -38,7 +38,8 @@ describe('Mein Heimvorteil Skill', () => {
             {
                 request: alexaTest.getIntentRequest('AMAZON.HelpIntent'),
                 says: 'Du kannst sagen „Öffne Mein Heimvorteil“ und ich sage dir was gerade auf Radio Gong Würzburg läuft.',
-                repromptsNothing: true, shouldEndSession: true,
+                repromptsNothing: true,
+                shouldEndSession: true,
             },
         ]);
     });
@@ -47,7 +48,9 @@ describe('Mein Heimvorteil Skill', () => {
         alexaTest.test([
             {
                 request: alexaTest.getSessionEndedRequest(),
-                saysNothing: true, repromptsNothing: true, shouldEndSession: true,
+                saysNothing: true,
+                repromptsNothing: true,
+                shouldEndSession: true,
             },
         ]);
     });
@@ -57,7 +60,8 @@ describe('Mein Heimvorteil Skill', () => {
             {
                 request: alexaTest.getIntentRequest('AMAZON.CancelIntent'),
                 says: '<say-as interpret-as="interjection">bis dann</say-as>.',
-                repromptsNothing: true, shouldEndSession: true,
+                repromptsNothing: true,
+                shouldEndSession: true,
             },
         ]);
     });
@@ -67,7 +71,8 @@ describe('Mein Heimvorteil Skill', () => {
             {
                 request: alexaTest.getIntentRequest('AMAZON.StopIntent'),
                 says: '<say-as interpret-as="interjection">bis dann</say-as>.',
-                repromptsNothing: true, shouldEndSession: true,
+                repromptsNothing: true,
+                shouldEndSession: true,
             },
         ]);
     });
@@ -79,7 +84,8 @@ describe('Mein Heimvorteil Skill', () => {
                 saysLike: 'Du hörst gerade ',
                 hasCardTitle: 'Radio Gong Playlist',
                 hasCardTextLike: 'Du hörst gerade ',
-                repromptsNothing: true, shouldEndSession: true,
+                repromptsNothing: true,
+                shouldEndSession: true,
             },
         ]);
     });
@@ -91,7 +97,8 @@ describe('Mein Heimvorteil Skill', () => {
                 saysLike: 'Du hörst gerade ',
                 hasCardTitle: 'Radio Gong Playlist',
                 hasCardTextLike: 'Du hörst gerade ',
-                repromptsNothing: true, shouldEndSession: true,
+                repromptsNothing: true,
+                shouldEndSession: true,
             },
         ]);
     });
@@ -103,7 +110,8 @@ describe('Mein Heimvorteil Skill', () => {
                 saysLike: 'Es liegen zur Zeit ',
                 hasCardTitle: 'Radio Gong Verkehrsmeldungen',
                 hasCardTextLike: 'Es liegen zur Zeit ',
-                repromptsNothing: true, shouldEndSession: true,
+                repromptsNothing: true,
+                shouldEndSession: true,
             },
         ]);
     });
@@ -115,7 +123,8 @@ describe('Mein Heimvorteil Skill', () => {
                 saysLike: 'Es liegen zur Zeit ',
                 hasCardTitle: 'Radio Gong Blitzermeldungen',
                 hasCardTextLike: 'Es liegen zur Zeit ',
-                repromptsNothing: true, shouldEndSession: true,
+                repromptsNothing: true,
+                shouldEndSession: true,
             },
         ]);
     });

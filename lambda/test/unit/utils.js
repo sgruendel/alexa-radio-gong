@@ -1,7 +1,6 @@
-'use strict';
+import { expect } from 'chai';
 
-const expect = require('chai').expect;
-const utils = require('../../utils');
+import * as utils from '../../utils.js';
 
 describe('utils', () => {
     describe('#getTrafficResponseData()', () => {
@@ -16,13 +15,15 @@ describe('utils', () => {
 
     describe('#getTrafficResponseData()', () => {
         it('should work for one message', () => {
-            const messages = [ { msg: 'eins', date: '29.11.2019', time: '10:09' } ];
+            const messages = [{ msg: 'eins', date: '29.11.2019', time: '10:09' }];
             const description = 'description';
             const backgroundImageUrl = '/icon.jpg';
             const result = utils.getTrafficResponseData(messages, description, backgroundImageUrl);
             expect(result.listItems).to.have.lengthOf(1);
 
-            expect(result.listItems[0].backgroundImage.sources[0].url, 'backgroundImageUrl').to.equal(backgroundImageUrl);
+            expect(result.listItems[0].backgroundImage.sources[0].url, 'backgroundImageUrl').to.equal(
+                backgroundImageUrl,
+            );
             expect(result.listItems[0].textContent.primaryText.text, 'primaryText').to.equal('eins');
             expect(result.listItems[0].textContent.secondaryText.text, 'secondaryText').to.equal('29.11.2019 10:09');
 
@@ -42,7 +43,9 @@ describe('utils', () => {
             const result = utils.getTrafficResponseData(messages, description, backgroundImageUrl);
             expect(result.listItems).to.have.lengthOf(2);
 
-            expect(result.listItems[0].backgroundImage.sources[0].url, 'backgroundImageUrl').to.equal(backgroundImageUrl);
+            expect(result.listItems[0].backgroundImage.sources[0].url, 'backgroundImageUrl').to.equal(
+                backgroundImageUrl,
+            );
             expect(result.listItems[0].textContent.primaryText.text, 'primaryText').to.equal('eins');
             expect(result.listItems[0].textContent.secondaryText.text, 'secondaryText').to.equal('29.11.2019 10:09');
 
