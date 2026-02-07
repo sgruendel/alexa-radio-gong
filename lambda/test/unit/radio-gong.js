@@ -30,7 +30,6 @@ describe('Radio Gong Website', () => {
     describe('#getPlaylist()', () => {
         it('should give songs playing', async function () {
             const playlist = await radioGong.getPlaylist(601, 5);
-            console.log('playlist', playlist);
             expect(playlist.success).to.be.true;
             expect(playlist.date).to.be.a('string');
             expect(playlist.playlist).to.have.lengthOf(5);
