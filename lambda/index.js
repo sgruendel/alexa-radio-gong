@@ -1,7 +1,8 @@
-const Alexa = require('ask-sdk-core');
-const i18next = require('i18next');
-const sprintf = require('i18next-sprintf-postprocessor');
-const winston = require('winston');
+import Alexa from 'ask-sdk-core';
+import i18next from 'i18next';
+import sprintf from 'i18next-sprintf-postprocessor';
+import winston from 'winston';
+import * as handlers from './handlers.js';
 
 const logger = winston.createLogger({
     level: process.env.LOG_LEVEL || 'info',
@@ -12,9 +13,6 @@ const logger = winston.createLogger({
     ],
     exitOnError: false,
 });
-
-// as index.cjs is CommonJS, we need to use the asynchronous import()
-const handlersPromise = import('./handlers.js');
 
 const SKILL_ID = 'amzn1.ask.skill.8b0359cd-df17-46f0-b1fa-509d6e9ca1cc';
 
@@ -51,7 +49,7 @@ const RadioGongIntentHandler = {
         );
     },
     async handle(handlerInput) {
-        return (await handlersPromise).handleRadioGongIntent(handlerInput);
+        return handlers.handleRadioGongIntent(handlerInput);
     },
 };
 
@@ -61,7 +59,7 @@ const TrafficMessagesIntentHandler = {
         return request.type === 'IntentRequest' && request.intent.name === 'TrafficMessagesIntent';
     },
     async handle(handlerInput) {
-        return (await handlersPromise).handleTrafficMessagesIntent(handlerInput);
+        return handlers.handleTrafficMessagesIntent(handlerInput);
     },
 };
 
@@ -71,7 +69,7 @@ const TrafficControlsIntentHandler = {
         return request.type === 'IntentRequest' && request.intent.name === 'TrafficControlsIntent';
     },
     async handle(handlerInput) {
-        return (await handlersPromise).handleTrafficControlsIntent(handlerInput);
+        return handlers.handleTrafficControlsIntent(handlerInput);
     },
 };
 
@@ -164,18 +162,27 @@ const LocalizationInterceptor = {
     },
 };
 
-exports.handler = Alexa.SkillBuilders.custom()
-    .addRequestHandlers(
-        RadioGongIntentHandler,
-        TrafficMessagesIntentHandler,
-        TrafficControlsIntentHandler,
-        FallbackIntentHandler,
-        HelpIntentHandler,
-        CancelAndStopIntentHandler,
-        SessionEndedRequestHandler,
-    )
-    .addRequestInterceptors(LocalizationInterceptor)
-    .addErrorHandlers(ErrorHandler)
-    .withApiClient(new Alexa.DefaultApiClient())
-    .withSkillId(SKILL_ID)
-    .lambda();
+let skill;
+
+export const handler = async function (event, context) {
+    if (!skill) {
+        skill = Alexa.SkillBuilders.custom()
+            .addRequestHandlers(
+                RadioGongIntentHandler,
+                TrafficMessagesIntentHandler,
+                TrafficControlsIntentHandler,
+                FallbackIntentHandler,
+                HelpIntentHandler,
+                CancelAndStopIntentHandler,
+                SessionEndedRequestHandler,
+            )
+            .addRequestInterceptors(LocalizationInterceptor)
+            .addErrorHandlers(ErrorHandler)
+            .withApiClient(new Alexa.DefaultApiClient())
+            .withSkillId(SKILL_ID)
+            .create();
+    }
+
+    const response = await skill.invoke(event, context);
+    return response;
+};

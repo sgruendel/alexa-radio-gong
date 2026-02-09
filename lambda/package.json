@@ -2,13 +2,15 @@
     "name": "alexa-radio-gong",
     "version": "2.4.0",
     "description": "Alexa Skill for querying playlist from Radio Gong http://www.radiogong.com/",
-    "main": "index.cjs",
+    "main": "index.js",
     "type": "module",
     "scripts": {
         "reinstall": "rm -rf ./node_modules && npm install",
         "test:unit": "c8 --reporter=lcov --reporter=text mocha --timeout=5000 test/unit/*",
         "test:integration": "mocha --timeout=20000 test/integration/*",
-        "test": "npm run test:unit"
+        "test": "npm run test:unit",
+        "lambda:zip": "zip -r /tmp/radioGong.zip node_modules/ package* *.js",
+        "lambda:deploy": "npm run lambda:zip && aws lambda update-function-code --function-name radioGong --zip-file fileb:///tmp/radioGong.zip"
     },
     "repository": {
         "type": "git",

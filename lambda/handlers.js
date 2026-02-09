@@ -46,6 +46,7 @@ export async function handleRadioGongIntent(handlerInput) {
             });
             logger.debug(cardContent);
 
+            // TODO this needs to be handled differently, check radio paradise skill
             const coverUrl = RADIOGONG_IMAGE_URL + entry.cover;
             response = handlerInput.responseBuilder
                 .speak(speechOutput)
