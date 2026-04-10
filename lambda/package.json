@@ -34,7 +34,7 @@
         "ask-sdk-core": "^2.14.0",
         "ask-sdk-model": "^1.86.0",
         "c8": "^11.0.0",
-        "i18next": "^26.0.3",
+        "i18next": "^26.0.4",
         "i18next-sprintf-postprocessor": "^0.2.2",
         "node-fetch": "^3.3.2",
         "winston": "^3.19.0"
@@ -43,7 +43,7 @@
         "@eslint/js": "^10.0.1",
         "alexa-skill-test-framework": "^1.2.4",
         "chai": "^6.2.2",
-        "eslint": "^10.1.0",
+        "eslint": "^10.2.0",
         "globals": "^17.4.0",
         "mocha": "^11.7.5"
     }
