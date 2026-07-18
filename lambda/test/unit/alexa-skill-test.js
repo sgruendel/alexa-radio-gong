@@ -11,7 +11,7 @@ alexaTest.initialize(
 );
 alexaTest.setLocale('de-DE');
 
-// TODO doesn't work with index.js in
+// TODO doesn't work with index.js using async function handler
 xdescribe('Mein Heimvorteil Skill', () => {
     describe('ErrorHandler', () => {
         alexaTest.test([
